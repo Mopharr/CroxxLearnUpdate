@@ -6,4 +6,9 @@ export const baseStyles = StyleSheet.create({
         justifyContent: 'flex-start',
         backgroundColor: '#000000'
     },
+    errorMessage: {
+        textAlign: "center",
+        // marginTop:25,
+        color: "#FF5733"
+    },
 })
