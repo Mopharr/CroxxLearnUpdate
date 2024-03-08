@@ -57,7 +57,7 @@ export default function App() {
     <AuthContext.Provider value={{auth, setAuth}}>
       <PageContextProvider>
         <UserContextProvider>
-          <StripeProvider publishableKey="pk_test_51LIAmLFozueojb1JUE6c6euwjP2ClmWm1g1dxyD9cOOpvBCgMkLgClLfXH8xvEeplqPFcYh6granpyBVYD0puaCc00HeNEtsOh">
+          {/* <StripeProvider publishableKey="pk_test_51LIAmLFozueojb1JUE6c6euwjP2ClmWm1g1dxyD9cOOpvBCgMkLgClLfXH8xvEeplqPFcYh6granpyBVYD0puaCc00HeNEtsOh"> */}
             <LoadingContextProvider>
               <StatusBar barStyle="light-content" />
               <SafeAreaView
@@ -70,13 +70,13 @@ export default function App() {
                     <Stack.Screen name="auth" component={AuthStack} ></Stack.Screen>
                   </Stack.Navigator>):
                   (<Drawer.Navigator>
-                    {/* <Drawer.Screen name="auth" component={AuthStack} /> */}
-                    <Drawer.Screen name="main" component={MainStack} />
+                    <Drawer.Screen name="auth" component={AuthStack} />
+                    {/* <Drawer.Screen name="main" component={MainStack} /> */}
                   </Drawer.Navigator>)}
                 </NavigationContainer>
               </SafeAreaView>
             </LoadingContextProvider>
-          </StripeProvider>
+          {/* </StripeProvider> */}
         </UserContextProvider>
       </PageContextProvider>
     </AuthContext.Provider>

@@ -12,9 +12,10 @@ import {
     Platform,
     View,
     TextInput,
+    Text,
+    Keyboard
 } from "react-native"
 
-import { Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../../components"
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -252,13 +253,13 @@ const $forget: TextStyle = {
 }
 
 const $tapButton: ViewStyle = {
-    marginTop: spacing.lg,
+    marginTop: 24,
     // backgroundColor: "#D03C3C",
     width: "75%",
     marginLeft: 80,
     marginRight: "auto",
     height: 48,
-    marginBottom: spacing.sm,
+    marginBottom: 12,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -286,7 +287,7 @@ const $signUp: TextStyle = {
     fontWeight: "500",
 }
 const $emailErr: TextStyle = {
-    paddingHorizontal: spacing[3],
+    paddingHorizontal: 12,
     color: colors.error,
     fontSize: 12,
     // fontFamily: "Poppins-Regular",
