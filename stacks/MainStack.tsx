@@ -83,7 +83,7 @@ export default function MainStack(){
     <SafeAreaView style={{flex: 1}}>
     {auth && page != "profile" && page != "tournamentDetails" && <Header/>}
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="challenges" component={Challenges}/>
+      {/* <Stack.Screen name="challenges" component={Challenges}/>
       <Stack.Screen name="create-challenge" component={CreateChallenge}/>  
       <Stack.Screen name="counter-challenge">
         {(props:any) => <CounterChallenge {...props}/>}
@@ -116,7 +116,7 @@ export default function MainStack(){
 
       <Stack.Screen name="Challenge_Chat">
         {(props:any) => <ChallengeChatRoom {...props}/>}
-      </Stack.Screen>
+      </Stack.Screen> */}
     </Stack.Navigator>
     {shouldShowActionButtons && <ActionButtons />}
     {shouldShowBottomNavBar && <BottomNavBar/>}

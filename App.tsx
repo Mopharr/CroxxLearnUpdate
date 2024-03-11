@@ -71,7 +71,7 @@ export default function App() {
                   </Stack.Navigator>):
                   (<Stack.Navigator>
                     <Stack.Screen name="auth" component={AuthStack} />
-                    {/* <Drawer.Screen name="main" component={MainStack} /> */}
+                    {/* <Stack.Screen name="main" component={MainStack} /> */}
                   </Stack.Navigator>)}
                 </NavigationContainer>
               </SafeAreaView>

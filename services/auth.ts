@@ -17,8 +17,8 @@ const signinWithFaceId = async (payload: { email: string }) => {
     return res.data
 }
 
-const signup = async (payload: { username: string, email: string, password: string }) => {
-    const request = axios.post(`${HOST}/api/auth/signup`, payload)
+const signup = async (payload: { firstName: string, lastName: string, email: string, password: string }) => {
+    const request = axios.post(`${HOST}/users/signup`, payload)
     const res = await request;
     return res.data
 }
