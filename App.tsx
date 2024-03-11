@@ -12,17 +12,17 @@ import {NavigationContainer, useLinkTo} from "@react-navigation/native";
 import { baseStyles } from "./style";
 
 import AuthStack from "./stacks/AuthStack";
-import MainStack from "./stacks/MainStack";
+// import MainStack from "./stacks/MainStack";
 
 import { UserContextProvider } from "./contexts/UserContext";
 import { AuthContext } from "./contexts/AuthContext";
 import { PageContextProvider } from "./contexts/PageContext";
-import { StripeProvider } from "@stripe/stripe-react-native";
+// import { StripeProvider } from "@stripe/stripe-react-native";
 import { LoadingContextProvider } from "./contexts/LoadingContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { createDrawerNavigator } from "@react-navigation/drawer";
 
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 
@@ -69,10 +69,10 @@ export default function App() {
                   (<Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="auth" component={AuthStack} ></Stack.Screen>
                   </Stack.Navigator>):
-                  (<Drawer.Navigator>
-                    <Drawer.Screen name="auth" component={AuthStack} />
+                  (<Stack.Navigator>
+                    <Stack.Screen name="auth" component={AuthStack} />
                     {/* <Drawer.Screen name="main" component={MainStack} /> */}
-                  </Drawer.Navigator>)}
+                  </Stack.Navigator>)}
                 </NavigationContainer>
               </SafeAreaView>
             </LoadingContextProvider>

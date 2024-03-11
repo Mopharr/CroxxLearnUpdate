@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 const HOST = Constants.expoConfig?.extra?.EXPO_PUBLIC_HOST;
 
 const signin = async (payload: { email: string, password: string }) => {
-    console.log(HOST)
+    console.log(HOST, 'hdhd')
     const request = axios.post(`${HOST}/users/login`, payload)
     const res = await request;
     return res.data

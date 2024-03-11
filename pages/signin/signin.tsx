@@ -1,294 +1,206 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react";
 import {
-    TextStyle,
-    ViewStyle,
-    Dimensions,
+    StyleSheet,
+    View,
+    Text,
     Image,
-    ImageStyle,
     ImageBackground,
     TouchableOpacity,
-    ActivityIndicator,
     KeyboardAvoidingView,
     Platform,
-    View,
+    Dimensions,
     TextInput,
-    Text,
-    Keyboard
-} from "react-native"
-
-import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as LocalAuthentication from 'expo-local-authentication';
-import * as Device from 'expo-device';
-// import * as Notifications from 'expo-notifications';
-import Constants from "expo-constants";
-
-import { handleSignin } from "../../handlers/auth/handleSignin"
-import { baseStyles } from "../../style"
-// import styles from './styles'
-import { useAuth } from '../../contexts/AuthContext';
+    ActivityIndicator,
+    Keyboard,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../contexts/AuthContext";
 import { useUser } from "../../contexts/UserContext";
 import { useLoading } from "../../contexts/LoadingContext";
-import { styles } from "./styles";
-import { colors } from "../../theme/color"
+import { handleSignin } from "../../handlers/auth/handleSignin";
+import { colors } from "../../theme/color";
 
+const logo = require("../../assets/images/CroxxImage/logo1.png");
+const back = require("../../assets/images/CroxxImage/backr.png");
 
-const logo = require("../../assets/images/CroxxImage/logo1.png")
-const back = require("../../assets/images/CroxxImage/backr.png")
-
-const { height, width } = Dimensions.get("screen")
+const { height, width } = Dimensions.get("screen");
 
 export default function SignIn() {
-    const navigation = useNavigation()
-    const { auth, setAuth } = useAuth()
-    const { user, setUser } = useUser()
-    const { loading, setLoading } = useLoading()
+    const navigation = useNavigation();
+    const { setAuth } = useAuth();
+    const { setUser } = useUser();
+    const { loading, setLoading } = useLoading();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
 
-    const [error, setError] = useState<String | null>(null)
-
-    const signin = async () => {
+    const handleSigninRequest = async () => {
         Keyboard.dismiss();
-
         setLoading(true);
 
-        handleSignin(email, password).then(async (data: any) => {
-            if (data) {
-                setUser(data.user);
-                setAuth(data.success);
-                setEmail('');
-                setPassword('');
-                setLoading(false);
-            }
-        }).catch((err: { response: { status: any; }; }) => {
-            if (err.response) {
-                switch (err.response.status) {
-                    case 404: {
-                        setError("Invalid email address and password")
-                        break
-                    }
-                    case 500: {
-                        setError("A server error occured, sorry.")
-                        break
-                    }
-                    default: {
-                        setError("Something went wrong.")
-                        break
-                    }
-                }
-            } else {
-                setError("request time out")
-            }
-            setLoading(false);
+        try {
+            const data: any = await handleSignin(email, password);
+            setUser(data.user);
+            setAuth(data.success);
+            setEmail("");
+            setPassword("");
+            setError(null);
+        } catch (err) {
             console.log(err)
-        })
-    }
+              handleError(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+      const handleError = (err:any) => {
+        if (err.response) {
+          switch (err.response.status) {
+            case 404:
+              setError("Invalid email address and password");
+              break;
+            case 500:
+              setError("A server error occurred, sorry.");
+              break;
+            default:
+              setError("Something went wrong.");
+          }
+        } else {
+          setError("Request timed out");
+        }
+      };
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <KeyboardAvoidingView
-                style={$screenContentContainer}
+                style={styles.screenContentContainer}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
-                <ImageBackground source={back} style={$container} imageStyle={$backgroundImage}>
-                    <Image source={logo} style={$logo} />
-                    <Text style={$logoText}>
-                        Bringing out the <Text style={$logoBold}>genius</Text> in you
+                <ImageBackground source={back} style={styles.backgroundImage}>
+                    <Image source={logo} style={styles.logo} />
+                    <Text style={styles.logoText}>
+                        Bringing out the <Text style={styles.logoBold}>genius</Text> in you
                     </Text>
 
-                    <Text style={$loginText}>Login</Text>
-                    {error &&
-                        <Text style={baseStyles.errorMessage}>{error}</Text>
-                    }
-                    <View style={$AuthInput}>
-                        <View style={styles.container}>
-                            <TextInput
-                                value={email}
-                                onChangeText={setEmail}
-                                style={$textField}
-                                placeholder={'Email'}
-                                placeholderTextColor={"grey"}
-                            />
-                        </View>
-
-                        <View style={styles.container}>
-                            <TextInput
-                                value={password}
-                                onChangeText={setPassword}
-                                style={$textField}
-                                placeholder={'Password'}
-                                placeholderTextColor={"grey"}
-                                secureTextEntry={true}
-                                onSubmitEditing={signin}
-                                returnKeyType="done"
-                            />
-                        </View>
-
-                        {/* <Text
-                            style={$forget}
-                            onPress={() => navigation.navigate("Auth", { screen: "forgotPassword" })}
-                        >
-                            forgot Password?
-                        </Text> */}
-
-                        <TouchableOpacity onPress={signin}>
+                    <Text style={styles.loginText}>Login</Text>
+                    {error && <Text style={styles.errorMessage}>{error}</Text>}
+                    <View style={styles.AuthInput}>
+                        <TextInput
+                            value={email}
+                            onChangeText={setEmail}
+                            style={styles.textField}
+                            placeholder={"Email"}
+                            placeholderTextColor={"grey"}
+                        />
+                        <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            style={styles.textField}
+                            placeholder={"Password"}
+                            placeholderTextColor={"grey"}
+                            secureTextEntry={true}
+                            onSubmitEditing={handleSigninRequest}
+                            returnKeyType="done"
+                        />
+                        <TouchableOpacity onPress={handleSigninRequest}>
                             <ImageBackground
-                                source={require("../../../app/assets/images/CroxxImage/rBtn.png")}
-                                style={$tapButton}
+                                source={require("../../assets/images/CroxxImage/rBtn.png")}
+                                style={styles.tapButton}
                             >
                                 {loading ? (
-                                    <ActivityIndicator
-                                        size="small"
-                                        color="#fff"
-                                        // eslint-disable-next-line react-native/no-inline-styles
-                                        style={{
-                                            alignContent: "center",
-                                        }}
-                                    />
+                                    <ActivityIndicator size="small" color="#fff" />
                                 ) : (
-                                    <Text style={$btnLo}>Login</Text>
+                                    <Text style={styles.btnLo}>Login</Text>
                                 )}
                             </ImageBackground>
                         </TouchableOpacity>
-
-                        {/* <Text style={$acc}>
-                            Don't have an account?
-                            <Text
-                                style={$signUp}
-                                onPress={() => navigation.navigate("Auth", { screen: "signUp" })}
-                            >
-                                SignUp
-                            </Text>
-                        </Text> */}
                     </View>
                 </ImageBackground>
             </KeyboardAvoidingView>
         </View>
-    )
+    );
 }
 
-const $screenContentContainer: ViewStyle = {
-    backgroundColor: "#000",
-    height,
-    width,
-}
-const $container: ViewStyle = {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-}
-
-const $backgroundImage: ImageStyle = {
-    resizeMode: "cover",
-    width,
-    height,
-}
-const $logo: ImageStyle = {
-    width: 300,
-    height: 100,
-    resizeMode: "contain",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 150,
-}
-const $logoText: TextStyle = {
-    textAlign: "center",
-    color: "#A8A8A8",
-    fontSize: 15,
-    fontStyle: "normal",
-    fontWeight: "400",
-    marginTop: -30,
-    marginBottom: 50,
-}
-const $logoBold: TextStyle = {
-    textAlign: "center",
-    color: "#A8A8A8",
-    fontSize: 15,
-    fontStyle: "normal",
-    fontWeight: "700",
-    margin: 0,
-}
-
-const $AuthInput: ViewStyle = {
-    borderRadius: 31,
-    // backgroundColor: "rgba(247, 246, 246, 0.24)",
-    backgroundColor: "red",
-    paddingTop: 30,
-    paddingBottom: 20,
-    width: "96%",
-}
-
-const $loginText: TextStyle = {
-    color: "#F2EEF8",
-    fontSize: 28,
-    fontStyle: "normal",
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 10,
-}
-// const $hint: TextStyle = {
-//   color: colors.tint,
-//   marginBottom: spacing.md,
-// }
-
-const $textField: ViewStyle = {
-    width: "95%",
-    height: 43,
-    backgroundColor: "#2E2E2E",
-    borderRadius: 16,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginBottom: 15,
-}
-const $forget: TextStyle = {
-    color: "#BDFF00",
-    fontSize: 14,
-    fontStyle: "normal",
-    fontWeight: "500",
-    textAlign: "right",
-    marginRight: 10,
-}
-
-const $tapButton: ViewStyle = {
-    marginTop: 24,
-    // backgroundColor: "#D03C3C",
-    width: "75%",
-    marginLeft: 80,
-    marginRight: "auto",
-    height: 48,
-    marginBottom: 12,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-}
-const $btnLo: TextStyle = {
-    fontWeight: "800",
-    fontSize: 22,
-    color: "#fff",
-    fontStyle: "normal",
-    marginRight: 50,
-}
-const $acc: TextStyle = {
-    color: "rgba(255, 255, 255, 0.51)",
-    fontSize: 11,
-    fontStyle: "normal",
-    fontWeight: "500",
-    textAlign: "center",
-}
-
-const $signUp: TextStyle = {
-    color: "#BDFF00",
-    fontSize: 11,
-    fontStyle: "normal",
-    fontWeight: "500",
-}
-const $emailErr: TextStyle = {
-    paddingHorizontal: 12,
-    color: colors.error,
-    fontSize: 12,
-    // fontFamily: "Poppins-Regular",
-}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    screenContentContainer: {
+        flex: 1,
+        backgroundColor: "#000",
+        height,
+        width,
+    },
+    backgroundImage: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        resizeMode: "cover",
+        width,
+        height,
+    },
+    logo: {
+        width: 300,
+        height: 100,
+        resizeMode: "contain",
+        marginTop: 150,
+    },
+    logoText: {
+        textAlign: "center",
+        color: "#A8A8A8",
+        fontSize: 15,
+        marginTop: -30,
+        marginBottom: 50,
+    },
+    logoBold: {
+        fontWeight: "700",
+    },
+    loginText: {
+        color: "#F2EEF8",
+        fontSize: 28,
+        fontWeight: "800",
+        textAlign: "center",
+        marginBottom: 10,
+    },
+    AuthInput: {
+        borderRadius: 31,
+        backgroundColor: "#fff", // Change this to your desired background color
+        paddingTop: 30,
+        paddingBottom: 20,
+        width: "96%",
+    },
+    textField: {
+        width: "95%",
+        height: 43,
+        backgroundColor: "#2E2E2E",
+        borderRadius: 16,
+        marginLeft: "auto",
+        marginRight: "auto",
+        padding: 10,
+        marginBottom: 15,
+    },
+    tapButton: {
+        marginTop: 24,
+        width: "75%",
+        marginLeft: 80,
+        marginRight: "auto",
+        height: 48,
+        marginBottom: 12,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    btnLo: {
+        fontWeight: "800",
+        fontSize: 22,
+        color: "#fff",
+    },
+    errorMessage: {
+        paddingHorizontal: 12,
+        color: "red",
+        fontSize: 12,
+        marginBottom: 8,
+    },
+});
