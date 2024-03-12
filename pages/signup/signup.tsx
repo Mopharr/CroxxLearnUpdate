@@ -58,11 +58,12 @@ export default function SignUp() {
   const [password1, setPassword1] = useState<string>('')
   const [password2, setPassword2] = useState<string>('')
 
-  const [error, setError] = useState<String | null>(null)
+  const [error, setError] = useState<string | null>(null);
 
   const signup = async () =>{
 
-    setLoading(true);    
+    setLoading(true);
+    console.log(firstName, lastName, email, password1, password2)
     handleSignup(firstName, lastName, email, password1, password2)
     .then(data => {
       if(data){
@@ -76,33 +77,28 @@ export default function SignUp() {
       }
       console.log(data);
     }).catch(err => {
-      if(err instanceof Error){
-        setError(err.message)
-      }
-      if(err instanceof AxiosError){
-        switch(err.response?.status){
-          case 406:{
-            setError(err.response.data)
-            break
-          }
-          case 500:{
-            setError("A server error occured, sorry.")
-            break
-          }
-          case undefined:{
-            setError("Something went wrong.")
-            break
-          }
-          default:{
-            setError("Something went wrong.")
-            break
-          }
-        }
-      }
       console.log(err)
+      handleError(err)
       setLoading(false);
     })
   }
+
+   const handleError = (err:any) => {
+        if (err.response) {
+          switch (err.response.status) {
+            case 404:
+              setError("Invalid email address and password");
+              break;
+            case 500:
+              setError("A server error occurred, sorry.");
+              break;
+            default:
+              setError("Something went wrong.");
+          }
+        } else {
+          setError("Request timed out");
+        }
+      };
 
   useEffect(()=>{
     // if(auth){
@@ -118,7 +114,7 @@ export default function SignUp() {
         style={styles.screenContentContainer}
         behavior={Platform.OS === "ios" ? "padding" : "padding"}
       >
-        {/* <Container position="top" /> */}
+        <Container position="top" />
 
         <ImageBackground source={back} imageStyle={styles.backgroundImage}>
           <View>
@@ -128,6 +124,8 @@ export default function SignUp() {
 
             <Text style={styles.staterText}>Details</Text>
           </View>
+
+          {error && <Text style={styles.errorMessage}>{error}</Text>}
 
           <View style={styles.AuthInput}>
             <TextInput
@@ -141,7 +139,7 @@ export default function SignUp() {
               value={lastName}
               onChangeText={setLastName}
               style={styles.textField}
-              placeholder={"First Name"}
+              placeholder={"Last Name"}
               placeholderTextColor={"grey"}
             />
 
@@ -149,7 +147,7 @@ export default function SignUp() {
               value={email}
               onChangeText={setEmail}
               style={styles.textField}
-              placeholder={"First Name"}
+              placeholder={"Email"}
               placeholderTextColor={"grey"}
             />
             <TextInput
@@ -166,7 +164,7 @@ export default function SignUp() {
             />
           </View>
 
-          <TouchableOpacity onPress={() => console.log('set')}>
+          <TouchableOpacity onPress={signup}>
             <ImageBackground
               source={require("../../assets/images/CroxxImage/rBtn.png")}
               style={styles.tapButton}
@@ -174,7 +172,7 @@ export default function SignUp() {
               {loading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
-                <Text style={styles.btnLo}>Login</Text>
+                <Text style={styles.btnLo}>Sign up</Text>
               )}
             </ImageBackground>
           </TouchableOpacity>
