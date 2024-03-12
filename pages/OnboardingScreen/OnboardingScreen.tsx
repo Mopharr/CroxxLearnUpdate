@@ -85,7 +85,7 @@ const OnboardingScreen = () => {
     const _renderItem = ({ item }: { item: any }) => {
         return (
             <ImageBackground
-                source={require("../../assets/images/CroxxImage/back.png")}
+                source={require("../../assets/images/CroxxImage/backr.png")}
                 style={styles.slide}
             >
                 <View key={item.key}>
