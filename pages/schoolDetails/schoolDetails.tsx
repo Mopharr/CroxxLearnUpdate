@@ -57,17 +57,17 @@ export const SchoolDetails = () => {
     //     }
     // }
 
-    const enroll = async (matricNo: string, faculty: string, department: string, level: string) => {
-        // Mock asynchronous enrollment action
-        return new Promise<void>((resolve, reject) => {
-            setTimeout(() => {
-                // Simulate success
-                resolve()
-                // Simulate failure
-                // reject(new Error("Enrollment failed"))
-            }, 2000)
-        })
-    }
+    // const enroll = async (matricNo: string, faculty: string, department: string, level: string) => {
+    //     // Mock asynchronous enrollment action
+    //     return new Promise<void>((resolve, reject) => {
+    //         setTimeout(() => {
+    //             // Simulate success
+    //             resolve()
+    //             // Simulate failure
+    //             // reject(new Error("Enrollment failed"))
+    //         }, 2000)
+    //     })
+    // }
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>

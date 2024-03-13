@@ -89,4 +89,29 @@ export default StyleSheet.create({
         paddingBottom: 20,
         width: "100%",
     },
+    searchIcon: {
+        color: "#C6C9CD",
+    },
+    search: {
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        width: "95%",
+        height: 43,
+        backgroundColor: "#2E2E2E",
+        borderRadius: 16,
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginBottom: 15,
+    },
+    iconBac: {
+        backgroundColor: "#7EAA00",
+        width: 30,
+        height: 30,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 100,
+    }
 })

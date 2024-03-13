@@ -5,8 +5,9 @@ import ResetPassword from '../pages/resetPassword/resetPassword'
 // import Signout from '../components/Signout';
 import Loader from '../components/Loader';
 import { useLoading } from '../contexts/LoadingContext';
-import OnboardingScreen from '../pages/onboardingScreen/OnboardingScreen';
 import { SchoolDetails } from '../pages/schoolDetails/schoolDetails';
+import OnboardingScreen from '../pages/onboardingScreen/onboardingScreen';
+import { SelectStudy } from '../pages/seleteStudy/seleteStudy';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,8 @@ export default function AuthStack(){
                 {/* <Stack.Screen name="signup" component={SignUp}/> */}
                 {/* <Stack.Screen name="reset-password" component={ResetPassword}/> */}
                 {/* <Stack.Screen name="onboardScreen" component={OnboardingScreen} /> */}
-                <Stack.Screen name="schoolDetails" component={SchoolDetails}/>
+                {/* <Stack.Screen name="schoolDetails" component={SchoolDetails}/> */}
+                <Stack.Screen name="selectStudy" component={SelectStudy}/>
                 {/* <Stack.Screen name="signout" component={Signout}/> */}
             </Stack.Navigator>
             {loading && <Loader/>}
