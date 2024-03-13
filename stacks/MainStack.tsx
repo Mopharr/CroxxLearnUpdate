@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SelectStudy } from "../pages/seleteStudy/seleteStudy";
+import { Home } from "../pages/home/home";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +37,7 @@ export default function MainStack() {
     <SafeAreaView style={{ flex: 1 }}>
       {/* {auth && page != "profile" && page != "tournamentDetails" && <Header/>} */}
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="selectStudy" component={SelectStudy}/>
+        <Stack.Screen name="home" component={Home}/>
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
