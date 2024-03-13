@@ -20,6 +20,7 @@ import { PageContextProvider } from "./contexts/PageContext";
 // import { StripeProvider } from "@stripe/stripe-react-native";
 import { LoadingContextProvider } from "./contexts/LoadingContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MainStack from "./stacks/MainStack";
 // import { createDrawerNavigator } from "@react-navigation/drawer";
 
 // const Drawer = createDrawerNavigator();
@@ -67,7 +68,8 @@ export default function App() {
                 <NavigationContainer>
                   {!auth ?
                   (<Stack.Navigator screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="auth" component={AuthStack} ></Stack.Screen>
+                    {/* <Stack.Screen name="auth" component={AuthStack} /> */}
+                    <Stack.Screen name="main" component={MainStack} />
                   </Stack.Navigator>):
                   (<Stack.Navigator>
                     <Stack.Screen name="auth" component={AuthStack} />
