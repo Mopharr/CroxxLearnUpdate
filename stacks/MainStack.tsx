@@ -15,6 +15,7 @@ import { Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SelectStudy } from "../pages/seleteStudy/seleteStudy";
 import { Home } from "../pages/home/home";
+import { ClassRoom } from "../pages/classRoom/classRoom";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +38,8 @@ export default function MainStack() {
     <SafeAreaView style={{ flex: 1 }}>
       {/* {auth && page != "profile" && page != "tournamentDetails" && <Header/>} */}
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="home" component={Home}/>
+        {/* <Stack.Screen name="home" component={Home}/> */}
+        <Stack.Screen name="classRoom" component={ClassRoom} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}

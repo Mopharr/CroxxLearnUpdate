@@ -35,49 +35,49 @@ export const Home = () => {
   const [getPdf, setGetPdf] = useState([])
   const [singleVideo, setSingleVideo] = useState([])
 
-  async function queryVideo() {
-    const token = await AsyncStorage.getItem("token")
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    }
+//   async function queryVideo() {
+//     const token = await AsyncStorage.getItem("token")
+//     const headers = {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     }
 
-    return axios
-      .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/videos", {
-        headers,
-      })
-      .then((res) => {
-        setGetVideo(res.data.videos)
-      })
-      .catch((error) => {
-        console.log("err", error)
-      })
-  }
+//     return axios
+//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/videos", {
+//         headers,
+//       })
+//       .then((res) => {
+//         setGetVideo(res.data.videos)
+//       })
+//       .catch((error) => {
+//         console.log("err", error)
+//       })
+//   }
 
-  async function queryPdf() {
-    const token = await AsyncStorage.getItem("token")
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    }
+//   async function queryPdf() {
+//     const token = await AsyncStorage.getItem("token")
+//     const headers = {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     }
 
-    return axios
-      .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/images", {
-        headers,
-      })
-      .then((res) => {
-        // console.log("pdf", res.data)
-        setGetPdf(res.data.images)
-      })
-      .catch((error) => {
-        console.log("err", error)
-      })
-  }
+//     return axios
+//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/images", {
+//         headers,
+//       })
+//       .then((res) => {
+//         // console.log("pdf", res.data)
+//         setGetPdf(res.data.images)
+//       })
+//       .catch((error) => {
+//         console.log("err", error)
+//       })
+//   }
 
-  useEffect(() => {
-    queryVideo()
-    queryPdf()
-  }, [])
+//   useEffect(() => {
+//     queryVideo()
+//     queryPdf()
+//   }, [])
 
 //   const handleVideo = (video: any) => {
 //     setSingleVideo(video)
