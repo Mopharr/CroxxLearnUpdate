@@ -3,8 +3,8 @@ import React, { FC } from "react"
 import { ViewStyle, Dimensions, ScrollView, View, Text } from "react-native"
 import { colors } from "../../theme/color"
 import { useNavigation } from "@react-navigation/native"
-import Pdf from "react-native-pdf"
-import PDFView from 'react-native-view-pdf'
+// import Pdf from "react-native-pdf"
+// import PDFView from 'react-native-view-pdf'
 
 const { height, width } = Dimensions.get("screen")
 export const ReadPdf = () => {
@@ -15,14 +15,14 @@ export const ReadPdf = () => {
     return (
         <View>
             <ScrollView style={$classroomHeader}><Text>HEADER</Text></ScrollView>
-            <Pdf
+            {/* <Pdf
                 trustAllCerts={false}
                 source={PdfResource}
                 style={$pdf}
                 onLoadComplete={(numberOfPages, filePath) => {
                     console.log(`number of pages: ${numberOfPages}`);
                 }}
-            />
+            /> */}
         </View>
     )
 }

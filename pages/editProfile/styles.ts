@@ -1,10 +1,21 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { colors } from '../../theme/color';
 const { height, width } = Dimensions.get("screen")
 
 export default StyleSheet.create({
     main: {
-        height: "100%",
-        backgroundColor: "#20201F",
+        height,
+        backgroundColor: colors.background,
+    },
+    ImageBackground: {
+        width,
+        height
+    },
+    Image: {
+        width: 131,
+        height: 131,
+        borderRadius: 300,
+        alignSelf: "center",
     },
     editHeader: {
         marginTop: 93,

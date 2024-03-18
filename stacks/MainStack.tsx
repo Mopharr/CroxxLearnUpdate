@@ -17,6 +17,7 @@ import { SelectStudy } from "../pages/seleteStudy/seleteStudy";
 import { Home } from "../pages/home/home";
 import { ClassRoom } from "../pages/classRoom/classRoom";
 import { ReadPdf } from "../pages/readPdf/readPdf";
+import EditProfile from "../pages/editProfile/editProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,7 +42,8 @@ export default function MainStack() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name="home" component={Home}/> */}
         {/* <Stack.Screen name="classRoom" component={ClassRoom} /> */}
-        <Stack.Screen name="readPdf" component={ReadPdf} />
+        {/* <Stack.Screen name="readPdf" component={ReadPdf} /> */}
+        <Stack.Screen name="editProfile" component={EditProfile} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
