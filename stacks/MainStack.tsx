@@ -21,6 +21,7 @@ import EditProfile from "../pages/editProfile/editProfile";
 import Profile from "../pages/profile/profile";
 import { CourseVideo } from "../pages/courseVideo/courseVideo";
 import { Lesson } from "../pages/lesson/lesson";
+import { Books } from "../pages/books/books";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,7 +50,8 @@ export default function MainStack() {
         {/* <Stack.Screen name="editProfile" component={EditProfile} /> */}
         {/* <Stack.Screen name="profile" component={Profile} /> */}
         {/* <Stack.Screen name="courseVideo" component={CourseVideo} /> */}
-        <Stack.Screen name="lesson" component={Lesson} />
+        {/* <Stack.Screen name="lesson" component={Lesson} /> */}
+        <Stack.Screen name="books" component={Books} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
