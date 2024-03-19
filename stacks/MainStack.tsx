@@ -19,6 +19,7 @@ import { ClassRoom } from "../pages/classRoom/classRoom";
 import { ReadPdf } from "../pages/readPdf/readPdf";
 import EditProfile from "../pages/editProfile/editProfile";
 import Profile from "../pages/profile/profile";
+import { CourseVideo } from "../pages/courseVideo/courseVideo";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +46,8 @@ export default function MainStack() {
         {/* <Stack.Screen name="classRoom" component={ClassRoom} /> */}
         {/* <Stack.Screen name="readPdf" component={ReadPdf} /> */}
         {/* <Stack.Screen name="editProfile" component={EditProfile} /> */}
-        <Stack.Screen name="profile" component={Profile} />
+        {/* <Stack.Screen name="profile" component={Profile} /> */}
+        <Stack.Screen name="courseVideo" component={CourseVideo} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
