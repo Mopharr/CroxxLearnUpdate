@@ -23,6 +23,7 @@ import { CourseVideo } from "../pages/courseVideo/courseVideo";
 import { Lesson } from "../pages/lesson/lesson";
 import { Books } from "../pages/books/books";
 import { Quiz } from "../pages/quiz/quiz";
+import { StartTest } from "../pages/quiz/startTest";
 
 const Stack = createNativeStackNavigator();
 
@@ -53,7 +54,8 @@ export default function MainStack() {
         {/* <Stack.Screen name="courseVideo" component={CourseVideo} /> */}
         {/* <Stack.Screen name="lesson" component={Lesson} /> */}
         {/* <Stack.Screen name="books" component={Books} /> */}
-        <Stack.Screen name="quiz" component={Quiz} />
+        {/* <Stack.Screen name="quiz" component={Quiz} /> */}
+        <Stack.Screen name="startTest" component={StartTest} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
