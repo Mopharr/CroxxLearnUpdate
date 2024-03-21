@@ -26,6 +26,7 @@ import { Quiz } from "../pages/quiz/quiz";
 import { StartTest } from "../pages/quiz/startTest";
 import { Test } from "../pages/quiz/test";
 import { Downloads } from "../pages/download/download";
+import { DownloadBooks } from "../pages/downloadBooks/downloadBook";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,7 +60,8 @@ export default function MainStack() {
         {/* <Stack.Screen name="quiz" component={Quiz} /> */}
         {/* <Stack.Screen name="startTest" component={StartTest} /> */}
         {/* <Stack.Screen name="test" component={Test} /> */}
-        <Stack.Screen name="download" component={Downloads} />
+        {/* <Stack.Screen name="download" component={Downloads} /> */}
+        <Stack.Screen name="downloadbook" component={DownloadBooks} />
 
       </Stack.Navigator>
       {/* {shouldShowActionButtons && <ActionButtons />} */}
