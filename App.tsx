@@ -68,12 +68,12 @@ export default function App() {
                 <NavigationContainer>
                   {!auth ?
                   (<Stack.Navigator screenOptions={{ headerShown: false }}>
-                    {/* <Stack.Screen name="auth" component={AuthStack} /> */}
+                    <Stack.Screen name="auth" component={AuthStack} />
                     <Stack.Screen name="main" component={MainStack} />
                   </Stack.Navigator>):
-                  (<Stack.Navigator>
+                  (<Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="auth" component={AuthStack} />
-                    {/* <Stack.Screen name="main" component={MainStack} /> */}
+                    <Stack.Screen name="main" component={MainStack} />
                   </Stack.Navigator>)}
                 </NavigationContainer>
               </SafeAreaView>

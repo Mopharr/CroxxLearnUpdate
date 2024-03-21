@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -19,6 +19,7 @@ import { useUser } from "../../contexts/UserContext";
 import { useLoading } from "../../contexts/LoadingContext";
 import { handleSignin } from "../../handlers/auth/handleSignin";
 import { colors } from "../../theme/color";
+import styles from "./styles";
 
 const logo = require("../../assets/images/CroxxImage/logo1.png");
 const back = require("../../assets/images/CroxxImage/backr.png");
@@ -27,8 +28,8 @@ const { height, width } = Dimensions.get("screen");
 
 export default function SignIn() {
     const navigation = useNavigation();
-    const { setAuth } = useAuth();
-    const { setUser } = useUser();
+    const { auth, setAuth } = useAuth()
+    const { user, setUser } = useUser()
     const { loading, setLoading } = useLoading();
 
     const [email, setEmail] = useState("");
@@ -46,30 +47,32 @@ export default function SignIn() {
             setEmail("");
             setPassword("");
             setError(null);
+            navigation.navigate("main", { screen: "home" })
         } catch (err) {
             console.log(err)
-              handleError(err);
+            handleError(err);
         } finally {
             setLoading(false);
         }
     };
 
-      const handleError = (err:any) => {
+
+    const handleError = (err: any) => {
         if (err.response) {
-          switch (err.response.status) {
-            case 404:
-              setError("Invalid email address and password");
-              break;
-            case 500:
-              setError("A server error occurred, sorry.");
-              break;
-            default:
-              setError("Something went wrong.");
-          }
+            switch (err.response.status) {
+                case 404:
+                    setError("Invalid email address and password");
+                    break;
+                case 500:
+                    setError("A server error occurred, sorry.");
+                    break;
+                default:
+                    setError("Something went wrong.");
+            }
         } else {
-          setError("Request timed out");
+            setError("Request timed out");
         }
-      };
+    };
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -115,92 +118,19 @@ export default function SignIn() {
                                 )}
                             </ImageBackground>
                         </TouchableOpacity>
+                        
                     </View>
+                    <Text style={styles.acc}>
+                            Don't have an account?
+                            <Text
+                                style={styles.signUp}
+                                onPress={() => navigation.navigate("auth", { screen: "signup" })}
+                            >
+                                SignUp
+                            </Text>
+                        </Text>
                 </ImageBackground>
             </KeyboardAvoidingView>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    screenContentContainer: {
-        flex: 1,
-        backgroundColor: "#000",
-        height,
-        width,
-    },
-    backgroundImage: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        resizeMode: "cover",
-        width,
-        height,
-    },
-    logo: {
-        width: 300,
-        height: 100,
-        resizeMode: "contain",
-        marginTop: 150,
-    },
-    logoText: {
-        textAlign: "center",
-        color: "#A8A8A8",
-        fontSize: 15,
-        marginTop: -30,
-        marginBottom: 50,
-    },
-    logoBold: {
-        fontWeight: "700",
-    },
-    loginText: {
-        color: "#F2EEF8",
-        fontSize: 28,
-        fontWeight: "800",
-        textAlign: "center",
-        marginBottom: 10,
-    },
-    AuthInput: {
-        borderRadius: 31,
-        backgroundColor: "#fff", // Change this to your desired background color
-        paddingTop: 30,
-        paddingBottom: 20,
-        width: "96%",
-    },
-    textField: {
-        width: "95%",
-        height: 43,
-        backgroundColor: "#2E2E2E",
-        borderRadius: 16,
-        marginLeft: "auto",
-        marginRight: "auto",
-        padding: 10,
-        marginBottom: 15,
-    },
-    tapButton: {
-        marginTop: 24,
-        width: "75%",
-        marginLeft: 80,
-        marginRight: "auto",
-        height: 48,
-        marginBottom: 12,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    btnLo: {
-        fontWeight: "800",
-        fontSize: 22,
-        color: "#fff",
-    },
-    errorMessage: {
-        paddingHorizontal: 12,
-        color: "red",
-        fontSize: 12,
-        marginBottom: 8,
-    },
-});

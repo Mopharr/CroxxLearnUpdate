@@ -1,13 +1,9 @@
 import React, { FC, useState } from "react"
 
 import {
-  ViewStyle,
-  Dimensions,
   ScrollView,
   ImageBackground,
   View,
-  ImageStyle,
-  TextStyle,
   Text,
   // TouchableOpacity,
 } from "react-native"

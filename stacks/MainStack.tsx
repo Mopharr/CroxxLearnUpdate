@@ -50,19 +50,19 @@ export default function MainStack() {
     <SafeAreaView style={{ flex: 1 }}>
       {/* {auth && page != "profile" && page != "tournamentDetails" && <Header/>} */}
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="home" component={Home}/> */}
-        {/* <Stack.Screen name="classRoom" component={ClassRoom} /> */}
-        {/* <Stack.Screen name="readPdf" component={ReadPdf} /> */}
-        {/* <Stack.Screen name="editProfile" component={EditProfile} /> */}
-        {/* <Stack.Screen name="profile" component={Profile} /> */}
-        {/* <Stack.Screen name="courseVideo" component={CourseVideo} /> */}
-        {/* <Stack.Screen name="lesson" component={Lesson} /> */}
-        {/* <Stack.Screen name="books" component={Books} /> */}
-        {/* <Stack.Screen name="quiz" component={Quiz} /> */}
-        {/* <Stack.Screen name="startTest" component={StartTest} /> */}
-        {/* <Stack.Screen name="test" component={Test} /> */}
-        {/* <Stack.Screen name="download" component={Downloads} /> */}
-        {/* <Stack.Screen name="downloadbook" component={DownloadBooks} /> */}
+        <Stack.Screen name="home" component={Home}/>
+        <Stack.Screen name="classRoom" component={ClassRoom} />
+        <Stack.Screen name="readPdf" component={ReadPdf} />
+        <Stack.Screen name="editProfile" component={EditProfile} />
+        <Stack.Screen name="profile" component={Profile} />
+        <Stack.Screen name="courseVideo" component={CourseVideo} />
+        <Stack.Screen name="lesson" component={Lesson} />
+        <Stack.Screen name="books" component={Books} />
+        <Stack.Screen name="quiz" component={Quiz} />
+        <Stack.Screen name="startTest" component={StartTest} />
+        <Stack.Screen name="test" component={Test} />
+        <Stack.Screen name="download" component={Downloads} />
+        <Stack.Screen name="downloadbook" component={DownloadBooks} />
         <Stack.Screen name="summary" component={Summary} />
 
       </Stack.Navigator>
