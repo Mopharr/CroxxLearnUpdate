@@ -78,7 +78,7 @@ export default function SignIn() {
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <KeyboardAvoidingView
                 style={styles.screenContentContainer}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             >
                 <ImageBackground source={back} style={styles.backgroundImage}>
                     <Image source={logo} style={styles.logo} />

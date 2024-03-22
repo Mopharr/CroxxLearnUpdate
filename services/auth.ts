@@ -17,9 +17,11 @@ const signinWithFaceId = async (payload: { email: string }) => {
     return res.data
 }
 
-const signup = async (payload: { firstName: string, lastName: string, email: string, password: string }) => {
+const signup = async (payload: { firstName: string, lastName: string, email: string, password: string, passwordConfirm: string }) => {
+    console.log({ payload })
     const request = axios.post(`${HOST}/users/signup`, payload)
     const res = await request;
+    console.log(res.data)
     return res.data
 }
 

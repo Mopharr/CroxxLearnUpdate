@@ -10,16 +10,14 @@ export default async function handleSignup(firstName: string, lastName: string, 
         lastName: lastName,
         email: email,
         password: password1,
+        passwordConfirm: password2,
     }
-    console.log(newUser)
     return await auth
         .signup(newUser)
         .then(async res => {
             logger.info(res)
+            console.log(res)
             try {
-                await AsyncStorage.setItem('@accessToken', res.accessToken)
-                await AsyncStorage.setItem('@refreshToken', res.refreshToken)
-                await AsyncStorage.setItem('@user', JSON.stringify(res.user))
                 return {
                     success: true,
                     user: res.user

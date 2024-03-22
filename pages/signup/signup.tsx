@@ -27,23 +27,14 @@ import { colors } from "../../theme/color";
 import Container, { Toast } from "toastify-react-native"
 import { FontAwesome } from "@expo/vector-icons"
 import handleSignup from "../../handlers/auth/handleSignup";
-
-
-
-type FormData = {
-  firstName: string
-  lastName: string
-  email: string
-  // role: string
-  password: string
-  passwordConfirm: string
-}
+import styles from "./styles";
 
 const back = require("../../assets/images/CroxxImage/backr.png")
 const facebook = require("../../assets/CroxxIcon/Facebook.png")
 const google = require("../../assets/CroxxIcon/Google.png")
 
 const { height, width } = Dimensions.get("screen");
+const logo = require("../../assets/images/CroxxImage/logo1.png");
 
 
 export default function SignUp() {
@@ -60,51 +51,51 @@ export default function SignUp() {
 
   const [error, setError] = useState<string | null>(null);
 
-  const signup = async () =>{
+  const signup = async () => {
 
     setLoading(true);
-    console.log(firstName, lastName, email, password1, password2)
+    // console.log(firstName, lastName, email, password1, password2)
     handleSignup(firstName, lastName, email, password1, password2)
-    .then(data => {
-      if(data){
-        setUser(data.user);
-        setAuth(data.success);
-        setEmail('');
-        setPassword1('');
-        setPassword2('');
-        setLoading(false);
+      .then(data => {
+        if (data) {
+          setEmail('');
+          setFirstName('');
+          setLastName('');
+          setPassword1('');
+          setPassword2('');
+          setLoading(false);
 
-      }
-      console.log(data);
-    }).catch(err => {
-      console.log(err)
-      handleError(err)
-      setLoading(false);
-    })
+        }
+       navigation.navigate('auth', { screen: 'signin' } as { screen: string });
+      }).catch(err => {
+        console.log(err)
+        handleError(err)
+        setLoading(false);
+      })
   }
 
-   const handleError = (err:any) => {
-        if (err.response) {
-          switch (err.response.status) {
-            case 404:
-              setError("Invalid email address and password");
-              break;
-            case 500:
-              setError("A server error occurred, sorry.");
-              break;
-            default:
-              setError("Something went wrong.");
-          }
-        } else {
-          setError("Request timed out");
-        }
-      };
+  const handleError = (err: any) => {
+    if (err.response) {
+      switch (err.response.status) {
+        case 404:
+          setError("Invalid email address and password");
+          break;
+        case 500:
+          setError("A server error occurred, sorry.");
+          break;
+        default:
+          setError("Something went wrong.");
+      }
+    } else {
+      setError("Request timed out");
+    }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     // if(auth){
     //   navigation.navigate('main', {screen:'new-challenges'})
     // }
-  },[auth]);
+  }, [auth]);
 
 
 
@@ -112,21 +103,18 @@ export default function SignUp() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <KeyboardAvoidingView
         style={styles.screenContentContainer}
-        behavior={Platform.OS === "ios" ? "padding" : "padding"}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <Container position="top" />
+        <ImageBackground source={back} style={styles.backgroundImage}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.logoText}>
+            Bringing out the <Text style={styles.logoBold}>genius</Text> in you
+          </Text>
 
-        <ImageBackground source={back} imageStyle={styles.backgroundImage}>
           <View>
-            <View>
-              <Text style={styles.stater}>Fill in your</Text>
+              <Text style={styles.stater}>Fill in your Details</Text>
             </View>
-
-            <Text style={styles.staterText}>Details</Text>
-          </View>
-
           {error && <Text style={styles.errorMessage}>{error}</Text>}
-
           <View style={styles.AuthInput}>
             <TextInput
               value={firstName}
@@ -142,7 +130,6 @@ export default function SignUp() {
               placeholder={"Last Name"}
               placeholderTextColor={"grey"}
             />
-
             <TextInput
               value={email}
               onChangeText={setEmail}
@@ -155,28 +142,38 @@ export default function SignUp() {
               placeholder={'Password'}
               onChangeText={(val) => setPassword1(val)}
               secureTextEntry={true}
+              placeholderTextColor={"grey"}
             />
             <TextInput
               style={[styles.textField]}
               placeholder={'Confirm Password'}
               onChangeText={(val) => setPassword2(val)}
               secureTextEntry={true}
+              placeholderTextColor={"grey"}
             />
+            <TouchableOpacity onPress={signup}>
+              <ImageBackground
+                source={require("../../assets/images/CroxxImage/rBtn.png")}
+                style={styles.tapButton}
+              >
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Text style={styles.btnLo}>Sign up</Text>
+                )}
+              </ImageBackground>
+            </TouchableOpacity>
+
           </View>
-
-          <TouchableOpacity onPress={signup}>
-            <ImageBackground
-              source={require("../../assets/images/CroxxImage/rBtn.png")}
-              style={styles.tapButton}
+          <Text style={styles.acc}>
+            Do you have an account?
+            <Text
+              style={styles.signUp}
+              onPress={() => navigation.navigate("auth", { screen: "signin" })}
             >
-              {loading ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <Text style={styles.btnLo}>Sign up</Text>
-              )}
-            </ImageBackground>
-          </TouchableOpacity>
-
+              Login
+            </Text>
+          </Text>
           <View>
             <Text style={styles.or}>--OR--</Text>
           </View>
@@ -196,137 +193,3 @@ export default function SignUp() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  screenContentContainer: {
-    flex: 1,
-    backgroundColor: "#000",
-    height,
-    width,
-  },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    resizeMode: "cover",
-    width,
-    height,
-  },
-  logo: {
-    width: 300,
-    height: 100,
-    resizeMode: "contain",
-    marginTop: 150,
-  },
-  logoText: {
-    textAlign: "center",
-    color: "#A8A8A8",
-    fontSize: 15,
-    marginTop: -30,
-    marginBottom: 50,
-  },
-  logoBold: {
-    fontWeight: "700",
-  },
-  loginText: {
-    color: "#F2EEF8",
-    fontSize: 28,
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  AuthInput: {
-    borderRadius: 31,
-    backgroundColor: "#fff",
-    paddingTop: 30,
-    paddingBottom: 20,
-    width: "100%",
-  },
-  textField: {
-    width: "95%",
-    height: 43,
-    backgroundColor: "#2E2E2E",
-    borderRadius: 16,
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: 10,
-    marginBottom: 15,
-  },
-  tapButton: {
-    marginTop: 24,
-    width: "75%",
-    marginLeft: 80,
-    marginRight: "auto",
-    height: 48,
-    marginBottom: 12,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  btnLo: {
-    fontWeight: "800",
-    fontSize: 22,
-    color: "#fff",
-  },
-  errorMessage: {
-    paddingHorizontal: 12,
-    color: "red",
-    fontSize: 12,
-    marginBottom: 8,
-  },
-  stater: {
-    color: "#fff",
-    fontSize: 42,
-    fontStyle: "normal",
-    fontWeight: "700",
-    textAlign: "left",
-    marginTop: 100,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: 223,
-    lineHeight: 50,
-  },
-  staterText: {
-    color: "#7EAA00",
-    fontSize: 63,
-    fontStyle: "normal",
-    fontWeight: "700",
-    textAlign: "left",
-    lineHeight: 80,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: 223,
-    marginBottom: 30,
-  },
-  or: {
-    fontWeight: "400",
-    fontSize: 14,
-    color: "#fff",
-    fontStyle: "normal",
-    textAlign: "center",
-  },
-  icons: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 20,
-    marginTop: 10,
-  },
-  ic: {
-    backgroundColor: "rgba(88, 84, 84, 0.5)",
-    width: 30,
-    height: 30,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 12,
-  },
-  apple: {
-    color: "grey",
-  }
-});
