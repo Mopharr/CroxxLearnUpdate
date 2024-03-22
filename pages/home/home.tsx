@@ -17,9 +17,9 @@ import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
 import { subjects } from "../../data/data"
-import axios from "axios"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useNavigation } from "@react-navigation/native"
+import { getAllVideos } from "../../handlers/main/videos"
 // import { SafeAreaView } from "react-native-safe-area-context"
 
 const { height } = Dimensions.get("screen")
@@ -35,24 +35,15 @@ export const Home = () => {
   const [getPdf, setGetPdf] = useState([])
   const [singleVideo, setSingleVideo] = useState([])
 
-//   async function queryVideo() {
-//     const token = await AsyncStorage.getItem("token")
-//     const headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     }
-
-//     return axios
-//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/videos", {
-//         headers,
-//       })
-//       .then((res) => {
-//         setGetVideo(res.data.videos)
-//       })
-//       .catch((error) => {
-//         console.log("err", error)
-//       })
-//   }
+  // async function queryVideo() {
+  //   getAllVideos
+  //     .then((res) => {
+  //       setGetVideo(res.data.videos)
+  //     })
+  //     .catch((error) => {
+  //       console.log("err", error)
+  //     })
+  // }
 
 //   async function queryPdf() {
 //     const token = await AsyncStorage.getItem("token")
@@ -74,10 +65,12 @@ export const Home = () => {
 //       })
 //   }
 
-//   useEffect(() => {
-//     queryVideo()
-//     queryPdf()
-//   }, [])
+  useEffect(() => {
+    getAllVideos().then((res) => {
+      setGetVideo(res)
+    })
+    // queryPdf()
+  }, [])
 
 //   const handleVideo = (video: any) => {
 //     setSingleVideo(video)
