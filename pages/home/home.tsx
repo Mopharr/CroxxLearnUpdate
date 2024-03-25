@@ -20,7 +20,7 @@ import { subjects } from "../../data/data"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useNavigation } from "@react-navigation/native"
 import { getAllVideos } from "../../handlers/main/video/videos"
-import { getAllPdfs } from "../../handlers/main/pdf/pdf"
+import { getAllPdfs } from "../../handlers/main/pdf/pdfs"
 import { useUser } from "../../contexts/UserContext"
 // import { SafeAreaView } from "react-native-safe-area-context"
 

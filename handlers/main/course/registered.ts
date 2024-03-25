@@ -4,16 +4,15 @@ import Constants from 'expo-constants';
 
 const HOST = Constants.expoConfig?.extra?.EXPO_PUBLIC_HOST;
 
-export const create_course = async (payload: { title: string, description: string, courseCode: string, department: string }) => {
+export const registered = async () => {
     try {
         const token = await AsyncStorage.getItem("@accessToken")
         const headers = {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         }
-        const data = await axios.post(`${HOST}/course`, {
+        const data = await axios.get(`${HOST}/course/registered`, {
             headers,
-            payload
         })
         return data.data
     } catch (error) {
