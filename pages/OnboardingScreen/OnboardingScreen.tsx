@@ -42,7 +42,7 @@ const OnboardingScreen = () => {
     const slideIndicatorColors = ["#7EAA00", "#542AE5", "#EECA15", "#FF33B8"]
     const FinalSlideButton = () => {
         return (
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log('shshs')}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('main', {screen: "classRoom"})}>
                 <Image source={require("../../assets/images/CroxxImage/start.png")} />
                 <View style={styles.buttonContainer2}>
                     <Text style={styles.textC}>Start </Text>
@@ -66,7 +66,6 @@ const OnboardingScreen = () => {
                             key={index}
                             style={[
                                 styles.paginationDot,
-                                // eslint-disable-next-line react-native/no-inline-styles, react-native/no-color-literals
                                 {
                                     backgroundColor: isIndicatorActive ? slideIndicatorColors[index] : "transparent",
                                 },
@@ -78,9 +77,6 @@ const OnboardingScreen = () => {
         )
     }
 
-    // const handleDone = () => {
-    //     navigation.navigate("Class", { screen: "ClassRoom" })
-    // }
 
     const _renderItem = ({ item }: { item: any }) => {
         return (

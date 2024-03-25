@@ -17,13 +17,12 @@ export default function AuthStack(){
     return(
         <>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                
+                <Stack.Screen name="onboardScreen" component={OnboardingScreen} />
                 <Stack.Screen name="reset-password" component={ResetPassword}/>
                 <Stack.Screen name="signin" component={SignIn}/>
                 <Stack.Screen name="signup" component={SignUp}/>
-                {/* <Stack.Screen name="onboardScreen" component={OnboardingScreen} />
                 <Stack.Screen name="schoolDetails" component={SchoolDetails}/>
-                <Stack.Screen name="selectStudy" component={SelectStudy}/> */}
+                <Stack.Screen name="selectStudy" component={SelectStudy}/>
                 {/* <Stack.Screen name="signout" component={Signout}/> */}
             </Stack.Navigator>
             {loading && <Loader/>}
