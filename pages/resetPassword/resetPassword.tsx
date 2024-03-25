@@ -12,11 +12,13 @@ import {
     ActivityIndicator,
     Dimensions,
     Platform,
-    Image
+    Image,
+    Keyboard
 } from 'react-native'
 import Container, { Toast } from "toastify-react-native"
 import { colors } from "../../theme/color"
 import { useLoading } from "../../contexts/LoadingContext"
+import auth from "../../services/auth"
 
 
 const logo = require("../../assets/images/CroxxImage/logo1.png")
@@ -29,11 +31,28 @@ export default function ResetPassword() {
     const [email, setEmail] = useState<string>('')
     const { loading, setLoading } = useLoading()
 
+    const reset = async (emailP: string) => {
+        Keyboard.dismiss();
+        setLoading(true);
+
+        try {
+            const data: any = await auth.forgot_password({ email: emailP });
+            if (data.status == "success") {
+                navigation.navigate("auth", { screen: "signin" })
+            }
+        } catch (err) {
+
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <KeyboardAvoidingView
                 style={styles.screenContentContainer}
-                behavior={Platform.OS === "ios" ? "padding" : "padding"}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
             >
                 <Container position="top" />
 
@@ -53,7 +72,7 @@ export default function ResetPassword() {
                             placeholderTextColor={"grey"}
                         />
 
-                        <TouchableOpacity onPress={() => console.log(email)}>
+                        <TouchableOpacity onPress={() => reset(email)}>
                             <ImageBackground
                                 source={require("../../assets/images/CroxxImage/rBtn.png")}
                                 style={styles.tapButton}
@@ -62,7 +81,6 @@ export default function ResetPassword() {
                                     <ActivityIndicator
                                         size="small"
                                         color="#fff"
-                                        // eslint-disable-next-line react-native/no-inline-styles
                                         style={{
                                             alignContent: "center",
                                         }}
@@ -123,6 +141,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     textField: {
+        color: "white",
         width: "95%",
         height: 43,
         backgroundColor: "#2E2E2E",

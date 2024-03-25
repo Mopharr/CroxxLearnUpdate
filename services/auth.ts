@@ -19,6 +19,7 @@ const signup = async (payload: { firstName: string, lastName: string, email: str
 }
 
 const forgot_password = async (payload: { email: string }) => {
+    console.log(payload)
     const request = axios.post(`${HOST}/users/forgotPassword`, payload)
     const res = await request
     return res.data

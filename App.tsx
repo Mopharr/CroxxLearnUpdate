@@ -66,7 +66,11 @@ export default function App() {
                 onLayout={onLayoutRootView}
               >
                 <NavigationContainer>
-                  {!auth ?
+                  <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="auth" component={AuthStack} />
+                    {/* <Stack.Screen name="main" component={MainStack} /> */}
+                  </Stack.Navigator>
+                  {/* {!auth ?
                   (<Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="auth" component={AuthStack} />
                     <Stack.Screen name="main" component={MainStack} />
@@ -74,7 +78,7 @@ export default function App() {
                   (<Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="auth" component={AuthStack} />
                     <Stack.Screen name="main" component={MainStack} />
-                  </Stack.Navigator>)}
+                  </Stack.Navigator>)} */}
                 </NavigationContainer>
               </SafeAreaView>
             </LoadingContextProvider>
