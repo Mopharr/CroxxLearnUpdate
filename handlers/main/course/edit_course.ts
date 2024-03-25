@@ -1,11 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Constants from 'expo-constants';
-import { useUser } from "../../contexts/UserContext";
+import { useUser } from "../../../contexts/UserContext";
 
 const HOST = Constants.expoConfig?.extra?.EXPO_PUBLIC_HOST;
 
-export const create_video = async (payload: { name: string, topic: string, courseCode: string, courseLevel: string, department: string }) => {
+export const edit_course = async (payload: { courseCode: string }) => {
     const { user } = useUser()
     try {
         const token = await AsyncStorage.getItem("@accessToken")
@@ -13,7 +13,7 @@ export const create_video = async (payload: { name: string, topic: string, cours
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         }
-        const data = await axios.post(`${HOST}/videos`, {
+        const data = await axios.patch(`${HOST}/course/${user.id}`, {
             headers,
             payload
         })
