@@ -24,4 +24,10 @@ const forgot_password = async (payload: { email: string }) => {
     return res.data
 }
 
-export default { signin, signup, forgot_password, }
+const verify = async (payload: { verificationCode: string }) => {
+    const request = axios.post(`${HOST}/users/verify`, payload)
+    const res = await request;
+    return res.data
+}
+
+export default { signin, signup, forgot_password, verify }
