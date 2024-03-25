@@ -11,20 +11,6 @@ const signin = async (payload: { email: string, password: string }) => {
     return res.data
 }
 
-const signinWithFaceId = async (payload: { email: string }) => {
-    const request = axios.post(`${HOST}/api/auth/signinwithfaceid`, payload)
-    const res = await request;
-    return res.data
-}
-
-
-
-const enroll = async (payload: { matric_no: string, faculty: string, department: string }) => {
-    const request = axios.post(`${HOST}/users/enroll`, payload)
-    const res = await request;
-    return res.data
-}
-
 
 const signup = async (payload: { firstName: string, lastName: string, email: string, password: string, passwordConfirm: string }) => {
     const request = axios.post(`${HOST}/users/signup`, payload)
@@ -38,4 +24,4 @@ const forgot_password = async (payload: { email: string }) => {
     return res.data
 }
 
-export default { signin, signup, signinWithFaceId, enroll, forgot_password, }
+export default { signin, signup, forgot_password, }
