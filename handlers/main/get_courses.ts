@@ -11,7 +11,7 @@ export const get_courses = async () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         }
-        const data = await axios.post(`${HOST}/course/department`, {
+        const data = await axios.get(`${HOST}/course/department`, {
             headers,
         })
         return data.data
