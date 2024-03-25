@@ -20,6 +20,8 @@ import { subjects } from "../../data/data"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useNavigation } from "@react-navigation/native"
 import { getAllVideos } from "../../handlers/main/videos"
+import { getAllPdfs } from "../../handlers/main/pdf"
+import { useUser } from "../../contexts/UserContext"
 // import { SafeAreaView } from "react-native-safe-area-context"
 
 const { height } = Dimensions.get("screen")
@@ -34,52 +36,25 @@ export const Home = () => {
   const [getVideos, setGetVideo] = useState([])
   const [getPdf, setGetPdf] = useState([])
   const [singleVideo, setSingleVideo] = useState([])
-
-  // async function queryVideo() {
-  //   getAllVideos
-  //     .then((res) => {
-  //       setGetVideo(res.data.videos)
-  //     })
-  //     .catch((error) => {
-  //       console.log("err", error)
-  //     })
-  // }
-
-//   async function queryPdf() {
-//     const token = await AsyncStorage.getItem("token")
-//     const headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     }
-
-//     return axios
-//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/images", {
-//         headers,
-//       })
-//       .then((res) => {
-//         // console.log("pdf", res.data)
-//         setGetPdf(res.data.images)
-//       })
-//       .catch((error) => {
-//         console.log("err", error)
-//       })
-//   }
+  const { user } = useUser()
 
   useEffect(() => {
     getAllVideos().then((res) => {
       setGetVideo(res)
     })
-    // queryPdf()
+    getAllPdfs().then((pdfs) => {
+      setGetPdf(pdfs)
+    })
   }, [])
 
-//   const handleVideo = (video: any) => {
-//     setSingleVideo(video)
-//   }
-//   useEffect(() => {
-//      if (singleVideo) {
-//       navigation.navigate("CourseVideo", { singleVideo });
-//     }
-//   }, [singleVideo]);
+  const handleVideo = (video: any) => {
+    setSingleVideo(video)
+  }
+  useEffect(() => {
+     if (singleVideo) {
+      navigation.navigate("courseVideo", { singleVideo });
+    }
+  }, [singleVideo]);
 
 
   return (
@@ -95,7 +70,7 @@ export const Home = () => {
             </View>
             <View>
               <Text style={$userName}>
-                <Text style={$Hi}>Hi</Text>, Daniel
+                <Text style={$Hi}>Hi</Text>, {user.firstName}
               </Text>
               <Text style={$what}>What will you learn</Text>
               <Text style={$today}>today ?</Text>
@@ -138,16 +113,16 @@ export const Home = () => {
             </View>
 
             <View>
-              {getVideos.length > 1 ? (
+              {getVideos.length > 0 ? (
                 getVideos.map((video, inx) => {
                   const backgroundColor = backgroundColors[inx % backgroundColors.length]
                   return (
                     <TouchableOpacity
                       style={[$topics, { backgroundColor }]}
                       key={inx}
-                    //   onPress={() => {
-                    //     handleVideo(video)
-                    //   }}
+                      onPress={() => {
+                        handleVideo(video)
+                      }}
                     >
                       <View style={$topicContainer}>
                         <View style={$topicNameView}>

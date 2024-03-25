@@ -4,17 +4,17 @@ import Constants from 'expo-constants';
 
 const HOST = Constants.expoConfig?.extra?.EXPO_PUBLIC_HOST;
 
-export const getAllVideos = async () => {
+export const getAllPdfs = async () => {
     try {
         const token = await AsyncStorage.getItem("@accessToken")
         const headers = {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         }
-        const data = await axios.get(`${HOST}/videos`, {
+        const data = await axios.get(`${HOST}/images`, {
             headers,
         })
-        return data.data.videos
+        return data.data.images
     } catch (error) {
         console.log(error)
     }

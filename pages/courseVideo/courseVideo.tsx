@@ -13,9 +13,9 @@ import styles from "./styles"
 import { useRoute } from '@react-navigation/native';
 
 export const CourseVideo = () => {
-//     const route = useRoute()
+    const route = useRoute()
 
-//   const { singleVideo }: any = route.params
+  const { singleVideo }: any = route.params
 
   const navigation = useNavigation()
 
