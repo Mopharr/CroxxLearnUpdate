@@ -112,7 +112,7 @@ export const SelectStudy = () => {
             </View>
           </View>
         </View>
-        <TouchableOpacity testID="login-button" style={styles.tapButton} onPress={() => console.log('set')}>
+        <TouchableOpacity testID="login-button" style={styles.tapButton} onPress={() => navigation.navigate("main", { screen: "classRoom" })}>
           <Text style={styles.btnLo}>Continue</Text>
         </TouchableOpacity>
       

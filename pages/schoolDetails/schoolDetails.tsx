@@ -20,6 +20,7 @@ import Container, { Toast } from "toastify-react-native"
 import { colors } from "../../theme/color"
 import { useLoading } from "../../contexts/LoadingContext"
 import { FontAwesome } from "@expo/vector-icons"
+// import { enroll } from "../../handlers/main/user/enroll"
 
 const back = require("../../assets/images/CroxxImage/backr.png")
 
@@ -33,41 +34,36 @@ export const SchoolDetails = () => {
     const [level, setLevel] = useState<string>('')
     const { loading, setLoading } = useLoading()
 
-    // const handleEnroll = async () => {
-    //     // Implement your enrollment logic here
-    //     // For example:
-    //     if (!matricNo || !faculty || !department || !level) {
-    //         Alert.alert("Please fill in all fields.")
-    //         return
-    //     }
+    const handleEnroll = async () => {
+        if (!matricNo || !faculty || !department || !level) {
+            Alert.alert("Please fill in all fields.")
+            return
+        }
 
-    //     setLoading(true)
+        setLoading(true)
+        try {
+            const data = await enroll(matricNo, faculty, department, level)
+            Toast.success("Enrollment Successful")
+            navigation.navigate("main", { screen: "classRoom" })
+        } catch (error) {
+            Alert.alert("Enrollment failed. Please try again.")
+        } finally {
+            setLoading(false)
+        }
+    }
 
-    //     // Perform your enrollment action
-    //     try {
-    //         // Assuming some asynchronous enrollment action
-    //         // Replace this with your actual enrollment logic
-    //         await enroll(matricNo, faculty, department, level)
-    //         Toast.success("Enrollment Successful")
-    //         navigation.navigate("Auth", { screen: "schDetails" })
-    //     } catch (error) {
-    //         Toast.error("Enrollment failed. Please try again.")
-    //     } finally {
-    //         setLoading(false)
-    //     }
-    // }
+    const enroll = async (matricNo: string, faculty: string, department: string, level: string) => {
+        // Mock asynchronous enrollment action
+        return new Promise<void>((resolve, reject) => {
+            setTimeout(() => {
+                // Simulate success
+                resolve()
+                // Simulate failure
+                // reject(new Error("Enrollment failed"))
+            }, 2000)
+        })
+    }
 
-    // const enroll = async (matricNo: string, faculty: string, department: string, level: string) => {
-    //     // Mock asynchronous enrollment action
-    //     return new Promise<void>((resolve, reject) => {
-    //         setTimeout(() => {
-    //             // Simulate success
-    //             resolve()
-    //             // Simulate failure
-    //             // reject(new Error("Enrollment failed"))
-    //         }, 2000)
-    //     })
-    // }
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -117,7 +113,7 @@ export const SchoolDetails = () => {
                             placeholderTextColor={"grey"}
                         />
 
-                        <TouchableOpacity onPress={() => console.log('set')}>
+                        <TouchableOpacity onPress={() => handleEnroll()}>
                             <ImageBackground
                                 source={require("../../assets/images/CroxxImage/bBtn.png")}
                                 style={styles.tapButton}

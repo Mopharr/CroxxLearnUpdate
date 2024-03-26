@@ -20,8 +20,8 @@ import { subjects } from "../../data/data"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useNavigation } from "@react-navigation/native"
 import { getAllVideos } from "../../handlers/main/video/videos"
-import { getAllPdfs } from "../../handlers/main/pdf/pdfs"
 import { useUser } from "../../contexts/UserContext"
+import { pdfs } from "../../handlers/main/pdf/pdfs"
 // import { SafeAreaView } from "react-native-safe-area-context"
 
 const { height } = Dimensions.get("screen")
@@ -42,7 +42,7 @@ export const Home = () => {
     getAllVideos().then((res) => {
       setGetVideo(res)
     })
-    getAllPdfs().then((pdfs) => {
+    pdfs().then((pdfs) => {
       setGetPdf(pdfs)
     })
   }, [])

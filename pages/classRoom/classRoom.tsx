@@ -20,6 +20,7 @@ import styles from "./styles"
 // import vfile from "../../../test.js"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
+import { getAllVideos } from "../../handlers/main/video/videos"
 
 
 export const ClassRoom = () => {
@@ -32,6 +33,12 @@ export const ClassRoom = () => {
     const [singleVideo, setSingleVideo] = useState([])
     const [filteredVideos, setFilteredVideos] = useState([])
     const [searchQuery, setSearchQuery] = useState("")
+
+    useEffect(() => {
+    getAllVideos().then((res) => {
+      setGetVideo(res)
+    })
+  }, [])
 
     //   async function queryVideo() {
     //     // setGetVideo(vfile)

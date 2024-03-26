@@ -15,7 +15,7 @@ const BottomNavBar = () => {
                         name="home"
                         size={30}
                         color={route.name === "Home" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
-                        // onPress={() => navigation.navigate("Class", { screen: "Home" })}
+                        onPress={() => navigation.navigate("main", { screen: "home" })}
                     />
                     <FontAwesome
                         name="graduation-cap"
@@ -28,7 +28,7 @@ const BottomNavBar = () => {
                                 ? "#BDFF00"
                                 : "rgba(109, 105, 105, 1)"
                         }
-                        // onPress={() => navigation.navigate("Class", { screen: "ClassRoom" })}
+                        onPress={() => navigation.navigate("main", { screen: "classRoom" })}
                     />
                     <FontAwesome
                         name="download"
@@ -38,13 +38,13 @@ const BottomNavBar = () => {
                                 ? "#BDFF00"
                                 : "rgba(109, 105, 105, 1)"
                         }
-                        // onPress={() => navigation.navigate("Class", { screen: "Download" })}
+                        onPress={() => navigation.navigate("main", { screen: "download" })}
                     />
                     <FontAwesome
                         name="user"
                         size={30}
                         color={route.name === "Profile" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
-                        // onPress={() => navigation.navigate("Class", { screen: "Profile" })}
+                        onPress={() => navigation.navigate("main", { screen: "profile" })}
                     />
                 </View>
             </View>
