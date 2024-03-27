@@ -14,7 +14,7 @@ export const all = async () => {
         const data = await axios.get(`${HOST}/exams`, {
             headers,
         })
-        return data.data
+        return data.data.exams
     } catch (error) {
         console.log(error)
     }

@@ -13,6 +13,8 @@ import { Entypo } from "@expo/vector-icons"
 
 import { useNavigation, useRoute } from "@react-navigation/native"
 import styles from "./styles"
+import { quizs } from "../../handlers/main/quiz/quizs"
+import { all } from "../../handlers/main/quiz/exams"
 
 
 
@@ -25,60 +27,45 @@ export const Quiz = () => {
   const [getExam, setgetExam] = useState([])
   const [filteredExams, setFilteredExams] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
-//   async function queryExam() {
-//     const token = await AsyncStorage.getItem("token")
-//     const headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     }
 
-//     return axios
-//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/exams", {
-//         headers,
-//       })
-//       .then((res) => {
-//         setgetExam(res.data.exams)
-//       })
-//       .catch((error) => {
-//         console.log("err", error)
-//       })
-//   }
+  useEffect(() => {
+    all().then((res) => {
+      // console.log(res)
+      setgetExam(res)
+    })
+  }, [])
+    const [examLink, setexamLink] = useState("")
 
-//   useEffect(() => {
-//     queryExam()
-//   }, [])
-//   const [examLink, setexamLink] = useState("")
+    const handleGetexamLink = (link: React.SetStateAction<string>) => {
+      setexamLink(link)
+    }
 
-//   const handleGetexamLink = (link) => {
-//     setexamLink(link)
-//   }
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredExams(getExam)
+    } else {
+      const filtered = getExam.filter((exam) =>
+        exam.category.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredExams(filtered)
+    }
+  }, [searchQuery, getExam])
 
-//   useEffect(() => {
-//     if (searchQuery === "") {
-//       setFilteredExams(getExam)
-//     } else {
-//       const filtered = getExam.filter((exam) =>
-//         exam.category.toLowerCase().includes(searchQuery.toLowerCase()),
-//       )
-//       setFilteredExams(filtered)
-//     }
-//   }, [searchQuery, getExam])
+  const handleSubjectFilter = (subject: string) => {
+    const filtered = getExam.filter((exam) => exam.category === subject)
+    setFilteredExams(filtered)
+  }
 
-//   const handleSubjectFilter = (subject: string) => {
-//     const filtered = getExam.filter((exam) => exam.category === subject)
-//     setFilteredExams(filtered)
-//   }
+  const isActive = (subject: string) => {
+    if (subject === "All") return true
+    return getExam.length > 0 && getExam.every((exam) => exam.category === subject)
+  }
 
-//   const isActive = (subject: string) => {
-//     if (subject === "All") return true
-//     return getExam.length > 0 && getExam.every((exam) => exam.category === subject)
-//   }
-
-//   useEffect(() => {
-//     if (examLink) {
-//       navigation.navigate("StartTest", { examLink })
-//     }
-//   }, [examLink])
+    useEffect(() => {
+      if (examLink) {
+        navigation.navigate("startTest", { examLink })
+      }
+    }, [examLink])
 
   return (
     <View>
@@ -103,28 +90,28 @@ export const Quiz = () => {
         <View style={styles.sectionTwo}>
           <View style={styles.sectionTwoIcon}>
             <TouchableOpacity
-            //   style={route.name === "ClassRoom" ? [$sectionTwoIcon1] : $sectionTwoIcon1}
-            // //   onPress={() => {
-            // //     navigation.navigate("Class", { screen: "ClassRoom" })
-            // //   }}
+              style={route.name === "classRoom" ? [styles.sectionTwoIcon1] : styles.sectionTwoIcon1}
+              onPress={() => {
+                navigation.navigate("main", { screen: "classRoom" })
+              }}
             >
               <Ionicons name="play" size={24} color="#fff" />
               {route.name === "ClassRoom" && <Text style={styles.textV}>VIDEO</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-            //   style={route.name === "Books" ? [$sectionTwoIconDes2] : $sectionTwoIconDes2}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "Books" })
-            //   }}
+              style={route.name === "books" ? [styles.sectionTwoIconDes2] : styles.sectionTwoIconDes2}
+              onPress={() => {
+                navigation.navigate("main", { screen: "books" })
+              }}
             >
               <Ionicons name="book" size={27} color="#fff" />
               {route.name === "Books" && <Text style={styles.textV}>Book</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-            //   style={route.name === "Quiz" ? [$sectionTwoIconDes3] : $sectionTwoIconDes3}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "Quiz" })
-            //   }}
+              style={route.name === "quiz" ? [styles.sectionTwoIconDes3] : styles.sectionTwoIconDes3}
+              onPress={() => {
+                navigation.navigate("main", { screen: "quiz" })
+              }}
             >
               <Ionicons name="medal" size={27} color="#fff" />
               {route.name === "Quiz" && <Text style={styles.textV}>Test</Text>}
@@ -134,36 +121,36 @@ export const Quiz = () => {
           <View>
             <View style={styles.subject}>
               <TouchableOpacity
-                // onPress={() => setFilteredExams(getExam)}
-                // style={isActive("All") ? $subjectTV1 : $subjectTV}
+                onPress={() => setFilteredExams(getExam)}
+                style={isActive("All") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>All</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("physics")}
-                // style={isActive("physics") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("physics")}
+                style={isActive("physics") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Physics</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("chemistry")}
-                // style={isActive("chemistry") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("chemistry")}
+                style={isActive("chemistry") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Chemistry</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("biology")}
-                // style={isActive("biology") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("biology")}
+                style={isActive("biology") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Biology</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("botany")}
-                // style={isActive("botany") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("botany")}
+                style={isActive("botany") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Botany</Text>
               </TouchableOpacity>
@@ -181,9 +168,9 @@ export const Quiz = () => {
                     const backgroundNum = backgroundPdfNumber[inx % backgroundPdfNumber.length]
                     return (
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   return handleGetexamLink(book)
-                        // }}
+                        onPress={() => {
+                          return handleGetexamLink(book)
+                        }}
                         key={inx}
                         style={[styles.books, { backgroundColor }]}
                       >
@@ -192,8 +179,8 @@ export const Quiz = () => {
                         </View>
 
                         <View style={styles.bookName}>
-                          <Text style={styles.bookNameT}>book.name</Text>
-                          <Text style={styles.bookNameTS}>book.category</Text>
+                          <Text style={styles.bookNameT}>{book.name}</Text>
+                          <Text style={styles.bookNameTS}>{book.category}</Text>
                         </View>
                         <Text style={styles.bookNameTS}>25 Quesion</Text>
                       </TouchableOpacity>

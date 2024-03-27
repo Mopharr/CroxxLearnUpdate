@@ -14,12 +14,12 @@ import styles from "./styles"
 export const StartTest = () => {
   const navigation = useNavigation()
   const route = useRoute()
-//   const { examLink }: any = route.params
+  const { examLink }: any = route.params
 
 
-//   const handleGetexamLink = () => {
-//     // navigation.navigate("Test", { examLink })
-//   }
+  const handleGetexamLink = () => {
+    // navigation.navigate("test", { examLink })
+  }
 
   return (
     <View>
@@ -31,22 +31,21 @@ export const StartTest = () => {
           >
             <View style={styles.ImageContent}>
               <View style={styles.textIMC}>
-                <Text style={styles.textIM}>examLink.category</Text>
+          <Text style={styles.textIM}>{examLink.category}</Text>
               </View>
             </View>
           </ImageBackground>
 
           <View style={styles.sec}>
-            <Text style={styles.text}>you are about to take</Text>
 
             <ImageBackground
               source={require("../../assets/images/CroxxImage/qu.png")}
               style={styles.exo}
             >
-              <Text style={styles.topic}>examLink.name</Text>
+              <Text style={styles.topic}>{examLink.name}</Text>
               <Text style={styles.topic}>Quiz</Text>
               <Text style={styles.time}>
-                23 Quesion, <Text style={styles.timeSpan}>examLink.duration Minutes</Text>
+                23 Quesion, <Text style={styles.timeSpan}>{examLink.duration} Minutes</Text>
               </Text>
             </ImageBackground>
           </View>
@@ -57,8 +56,8 @@ export const StartTest = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
-            //   onPress={() => handleGetexamLink()}
-            //   style={styles.start}
+              onPress={() => handleGetexamLink()}
+              style={styles.start}
             >
               <Text style={styles.cancelText}>Start</Text>
             </TouchableOpacity>

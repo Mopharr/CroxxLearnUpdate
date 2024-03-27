@@ -22,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import axios from "axios"
 import { colors } from "../../theme/color"
+import { pdfs } from "../../handlers/main/pdf/pdfs"
 
 
 export const Books = () => {
@@ -34,56 +35,40 @@ export const Books = () => {
   const [filteredPdfs, setFilteredPdfs] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
 
-//   async function queryPdf() {
-//     const token = await AsyncStorage.getItem("token")
-//     const headers = {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     }
+  useEffect(() => {
+    pdfs().then((res) => {
+      // console.log(res, 'hhhh')
+      setGetPdf(res)
+    })
+  }, [])
 
-//     return axios
-//       .get("https://croxxlearn-d5874d7f0aa7.herokuapp.com/api/v1/images", {
-//         headers,
-//       })
-//       .then((res) => {
-//         setGetPdf(res.data.images)
-//       })
-//       .catch((error) => {
-//         console.log("err", error)
-//       })
-//   }
+  useEffect(() => {
+    if (searchQuery === "") {
+      setFilteredPdfs(getPdf)
+    } else {
+      const filtered = getPdf.filter((pdf) =>
+        pdf.department.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredPdfs(filtered)
+    }
+  }, [searchQuery, getPdf])
 
-//   useEffect(() => {
-//     queryPdf()
-//   }, [])
+  const [pdfLink, setPdfLink] = useState("")
 
-//   useEffect(() => {
-//     if (searchQuery === "") {
-//       setFilteredPdfs(getPdf)
-//     } else {
-//       const filtered = getPdf.filter((pdf) =>
-//         pdf.department.name.toLowerCase().includes(searchQuery.toLowerCase()),
-//       )
-//       setFilteredPdfs(filtered)
-//     }
-//   }, [searchQuery, getPdf])
+  // const handleGetPdfLink = (link) => {
+  //   setPdfLink(link)
+  //   navigation.navigate("ReadPdf", { pdfLink })
+  // }
 
-//   const [pdfLink, setPdfLink] = useState("")
+  const handleSubjectFilter = (subject: string) => {
+    const filtered = filteredPdfs.filter((pdf) => pdf.department.name === subject)
+    setFilteredPdfs(filtered)
+  }
 
-//   const handleGetPdfLink = (link) => {
-//     setPdfLink(link)
-//     navigation.navigate("ReadPdf", { pdfLink })
-//   }
-
-//   const handleSubjectFilter = (subject: string) => {
-//     const filtered = filteredPdfs.filter((pdf) => pdf.department.name === subject)
-//     setFilteredPdfs(filtered)
-//   }
-
-//   const isActive = (subject: string) => {
-//     if (subject === "All") return true
-//     return filteredPdfs.length > 0 && filteredPdfs.every((pdf) => pdf.department.name === subject)
-//   }
+  const isActive = (subject: string) => {
+    if (subject === "All") return true
+    return filteredPdfs.length > 0 && filteredPdfs.every((pdf) => pdf.department.name === subject)
+  }
 
   return (
     <View>
@@ -109,27 +94,27 @@ export const Books = () => {
           <View style={styles.sectionTwoIcon}>
             <TouchableOpacity
               style={route.name === "ClassRoom" ? [styles.sectionTwoIcon1] : styles.sectionTwoIcon1}
-            //   onPress={() => {
-            //     // navigation.navigate("Class", { screen: "ClassRoom" })
-            //   }}
+              onPress={() => {
+                navigation.navigate("main", { screen: "classRoom" })
+              }}
             >
               <Ionicons name="play" size={24} color="#fff" />
               {route.name === "ClassRoom" && <Text style={styles.textV}>VIDEO</Text>}
             </TouchableOpacity>
             <TouchableOpacity
               style={route.name === "Books" ? [styles.sectionTwoIconDes2] : styles.sectionTwoIconDes2}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "Books" })
-            //   }}
+              onPress={() => {
+                navigation.navigate("main", { screen: "books" })
+              }}
             >
               <Ionicons name="book" size={27} color="#fff" />
               {route.name === "Books" && <Text style={styles.textV}>Book</Text>}
             </TouchableOpacity>
             <TouchableOpacity
               style={route.name === "Quiz" ? [styles.sectionTwoIconDes3] : styles.sectionTwoIconDes3}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "Quiz" })
-            //   }}
+              onPress={() => {
+                navigation.navigate("main", { screen: "quiz" })
+              }}
             >
               <Ionicons name="medal" size={27} color="#fff" />
               {route.name === "Quiz" && <Text style={styles.textV}>Test</Text>}
@@ -139,36 +124,36 @@ export const Books = () => {
           <View>
             <View style={styles.subject}>
               <TouchableOpacity
-                // onPress={() => setFilteredPdfs(getPdf)}
-                // style={isActive("All") ? $subjectTV1 : $subjectTV}
+                onPress={() => setFilteredPdfs(getPdf)}
+                style={isActive("All") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>All</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("physics")}
-                // style={isActive("physics") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("physics")}
+                style={isActive("physics") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Physics</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("chemistry")}
-                // style={isActive("chemistry") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("chemistry")}
+                style={isActive("chemistry") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Chemistry</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("biology")}
-                // style={isActive("biology") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("biology")}
+                style={isActive("biology") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Biology</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => handleSubjectFilter("botany")}
-                // style={isActive("botany") ? $subjectTV1 : $subjectTV}
+                onPress={() => handleSubjectFilter("botany")}
+                style={isActive("botany") ? styles.subjectTV1 : styles.subjectTV}
               >
                 <Text style={styles.subjectT}>Botany</Text>
               </TouchableOpacity>

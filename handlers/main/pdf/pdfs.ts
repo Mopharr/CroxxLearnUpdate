@@ -14,6 +14,7 @@ export const pdfs = async () => {
         const data = await axios.get(`${HOST}/images`, {
             headers,
         })
+        // console.log(data.data.images)
         return data.data.images
     } catch (error) {
         console.log(error)
