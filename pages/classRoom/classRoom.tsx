@@ -162,10 +162,10 @@ export const ClassRoom = () => {
                                             <TouchableOpacity
                                                 style={[styles.topics, { backgroundColor }]}
                                                 key={inx}
-                                            // onPress={() => {
-                                            //     setSingleVideo(video)
-                                            //     navigation.navigate("CourseVideo", { singleVideo })
-                                            // }}
+                                            onPress={() => {
+                                                setSingleVideo(video)
+                                                navigation.navigate("courseVideo", { singleVideo })
+                                            }}
                                             >
                                                 <View style={styles.topicContainer}>
                                                     <View style={styles.topicNameView}>

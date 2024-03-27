@@ -18,7 +18,7 @@ export const StartTest = () => {
 
 
   const handleGetexamLink = () => {
-    // navigation.navigate("test", { examLink })
+    navigation.navigate("test", { examLink })
   }
 
   return (

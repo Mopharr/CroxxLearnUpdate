@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import {
   ScrollView,
   View,
@@ -13,7 +13,7 @@ import styles from "./styles"
 import { useRoute } from '@react-navigation/native';
 
 export const CourseVideo = () => {
-    const route = useRoute()
+  const route = useRoute()
 
   const { singleVideo }: any = route.params
 
@@ -26,8 +26,7 @@ export const CourseVideo = () => {
   }
   useEffect(() => {
     if (singleVideoWatch && Object.keys(singleVideoWatch).length > 0) {
-    //   navigation.navigate("Lesson", { singleVideoWatch });
-    console.log('single')
+        navigation.navigate("lesson", { singleVideoWatch });
     }
   }, [singleVideoWatch]);
   return (
@@ -76,16 +75,15 @@ export const CourseVideo = () => {
           <View>
             <View style={styles.topicWrap}>
               <TouchableOpacity
-                onPress={() => {
-                  console.log("single video")
-                }}
+                onPress={() =>
+                  handleVideoWatch(singleVideo)}
                 style={styles.topics}
               >
                 <View style={styles.topicContainer}>
                   <View style={styles.topicNameView}>
-                    <Text style={styles.topicName}>.courseCode</Text>
+                    <Text style={styles.topicName}>{singleVideo.courseCode}</Text>
                   </View>
-                  <Text style={styles.topicTopic}>topic</Text>
+                  <Text style={styles.topicTopic}>{singleVideo.topic}</Text>
                   <Text style={styles.topicTutor}>
                     Tutor <Text style={styles.tutor}>Micheal</Text>
                   </Text>

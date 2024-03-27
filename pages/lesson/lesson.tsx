@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import {
   ViewStyle,
   Dimensions,
@@ -21,9 +21,9 @@ import { useNavigation, useRoute } from "@react-navigation/native"
 
 export const Lesson = () => {
   const navigation = useNavigation()
-//   const route = useRoute()
-//   const { singleVideoWatch }: any = route.params
-  // const [downloadProgress, setDownloadProgress] = useState<number | null>(null)
+  const route = useRoute()
+  const { singleVideoWatch }: any = route.params
+  const [downloadProgress, setDownloadProgress] = useState<number | null>(null)
 
   
   return (
@@ -38,16 +38,16 @@ export const Lesson = () => {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Image source={require("../../assets/CroxxIcon/arr.png")} />
               </TouchableOpacity>
-              <Text style={styles.textIM}>courseCode</Text>
+              <Text style={styles.textIM}>{singleVideoWatch.courseCode}</Text>
             </View>
           </ImageBackground>
         </View>
         <View style={styles.sectionTwo}>
           <Video
-            // source={{ uri: singleVideoWatch.url }}
-            // // style={{ width: "100%", aspectRatio: 16 / 9 }}
-            // style={styles.video}
-            // useNativeControls
+            source={{ uri: singleVideoWatch.url }}
+            // style={{ width: "100%", aspectRatio: 16 / 9 }}
+            style={styles.video}
+            useNativeControls
           />
          
 

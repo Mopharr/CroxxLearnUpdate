@@ -1,0 +1,180 @@
+import { Dimensions, StyleSheet } from 'react-native';
+import { colors } from '../../theme/color';
+
+const { height, width } = Dimensions.get("screen")
+
+
+export default StyleSheet.create({
+    classroomHeader: {
+        backgroundColor: colors.blackBackground,
+        height,
+        width,
+    },
+    downNavigationContainer: {
+        position: "absolute",
+        bottom: "0%",
+        left: "5%",
+    },
+    ClassImage: {
+        height: 150,
+    },
+    ImageContent: {
+        paddingTop: 71,
+    },
+    normalText: {
+        paddingHorizontal: 5,
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: "500",
+        textAlign: "center",
+    },
+    selectedText: {
+        paddingHorizontal: 5,
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: "700",
+        textAlign: "center",
+    },
+    textIM: {
+        color: "#E8E5E5",
+        fontSize: 32,
+        fontWeight: "800",
+        textAlign: "center",
+    },
+    textIMC: {
+        paddingHorizontal: 88,
+    },
+    sec: {
+        marginTop: 30,
+    },
+    exo: {
+        width: "95%",
+        resizeMode: "repeat",
+        height: 200,
+        marginRight: "auto",
+        marginLeft: "auto",
+        marginTop: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    optionsContainer: {
+        alignItems: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 15,
+        marginTop: 20,
+    },
+    option: {
+        height: 44,
+        borderRadius: 14,
+        borderColor: "#363434",
+        borderWidth: 1,
+        width: "45%",
+        alignItems: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        padding: 10,
+        marginBottom: 20,
+    },
+    selectedOption: {
+        backgroundColor: "#363434",
+    },
+    time: {
+        color: "#E8E5E5",
+        fontSize: 16,
+        fontWeight: "600",
+        textAlign: "left",
+        marginTop: 20,
+        width: "75%",
+    },
+    num: {
+        backgroundColor: "#363434",
+        width: 100,
+        height: 30,
+        marginRight: "auto",
+        marginLeft: 40,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 24,
+    },
+    qNum: {
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: "500",
+        textAlign: "center",
+    },
+    nP: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        width: "70%",
+        marginTop: 30,
+    },
+    questionNumbersContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 10,
+    },
+    questionNumber: {
+        width: 30,
+        height: 30,
+        backgroundColor: "#413C3C",
+        borderRadius: 15,
+        margin: 5,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    selectedQuestionNumber: {
+        backgroundColor: "#7EAA00",
+    },
+    questionText: {
+        color: "#fff",
+    },
+    selectedQuestionText: {
+        color: "#fff",
+    },
+    timeCal: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row",
+        gap: 40,
+        marginTop: 10,
+    },
+    CalTimer: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 25,
+        paddingVertical: 10,
+        borderRadius: 25,
+        backgroundColor: "rgba(139, 71, 203, 0.24)",
+    },
+    timerVal: {
+        color: "#fff",
+        fontSize: 28,
+        fontWeight: "500",
+        textAlign: "center",
+    },
+    cancel: {
+        width: 260,
+        height: 50,
+        backgroundColor: "#C94848",
+        borderRadius: 15,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    cancelText: {
+        color: "#fff",
+        fontSize: 19,
+        fontWeight: "700",
+        textAlign: "center",
+    },
+});

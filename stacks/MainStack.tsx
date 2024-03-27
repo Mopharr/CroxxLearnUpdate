@@ -24,7 +24,7 @@ import { Lesson } from "../pages/lesson/lesson";
 import { Books } from "../pages/books/books";
 import { Quiz } from "../pages/quiz/quiz";
 import { StartTest } from "../pages/quiz/startTest";
-import { Test } from "../pages/quiz/test";
+import { Test } from "../pages/test/test";
 import { Downloads } from "../pages/download/download";
 import { DownloadBooks } from "../pages/downloadBooks/downloadBook";
 import { Summary } from "../pages/summary/summary";
