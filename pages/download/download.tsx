@@ -45,19 +45,19 @@ export const Downloads = () => {
         <View style={styles.sectionTwo}>
           <View style={styles.sectionTwoIcon}>
             <TouchableOpacity
-            //   style={route.name === "ClassRoom" ? [styles.sectionTwoIcon1] : styles.sectionTwoIcon1}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "Download" })
-            //   }}
+              style={route.name === "ClassRoom" ? [styles.sectionTwoIcon1] : styles.sectionTwoIcon1}
+              onPress={() => {
+                navigation.navigate("main", { screen: "download" })
+              }}
             >
               <Ionicons name="play" size={24} color="#fff" />
               {route.name === "Download" && <Text style={styles.textV}>VIDEO</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-            //   style={route.name === "DownloadBook" ? [styles.sectionTwoIconDes2] : styles.sectionTwoIconDes2}
-            //   onPress={() => {
-            //     navigation.navigate("Class", { screen: "DownloadBook" })
-            //   }}
+              style={route.name === "DownloadBook" ? [styles.sectionTwoIconDes2] : styles.sectionTwoIconDes2}
+              onPress={() => {
+                navigation.navigate("main", { screen: "downloadBook" })
+              }}
             >
               <Ionicons name="book" size={27} color="#fff" />
               {route.name === "DowloadBook" && <Text style={styles.textV}>Book</Text>}

@@ -27,7 +27,7 @@ export const StartTest = () => {
         <View>
           <ImageBackground
             source={require("../../assets/images/CroxxImage/Quiz.png")}
-            style={styles.classImage}
+            style={styles.ClassImage}
           >
             <View style={styles.ImageContent}>
               <View style={styles.textIMC}>
@@ -50,7 +50,7 @@ export const StartTest = () => {
             </ImageBackground>
           </View>
 
-          <View style={styles.ImageContent}>
+          <View style={styles.btn}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.cancel}>
               <Text style={styles.cancelText}>Cancel</Text>
             </TouchableOpacity>

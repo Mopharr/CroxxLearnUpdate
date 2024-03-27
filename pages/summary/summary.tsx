@@ -43,7 +43,7 @@ export const Summary = () => {
                   <Text style={styles.time}>{result.question}</Text>
                   <Text style={styles.sAns}>Selected Answer: {result.selectedAnswer}</Text>
                   <Text style={styles.sAns}>Correct Answer: {result.correctAnswer}</Text>
-                  {true ? (
+                  {result.selectedAnswer == result.correctAnswer ? (
                     <Text style={{ color: colors.lemon }}>Correct</Text>
                   ) : (
                     <Text style={{ color: colors.error }}>Incorrect</Text>
