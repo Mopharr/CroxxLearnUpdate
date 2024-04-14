@@ -56,6 +56,12 @@ export default function SignIn() {
         }
     };
 
+    useEffect(() => {
+        if (auth) {
+            navigation.navigate("main", { screen: "home" })
+        }
+    }, [])
+
 
     const handleError = (err: any) => {
         if (err.response) {

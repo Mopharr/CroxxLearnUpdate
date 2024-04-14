@@ -16,7 +16,7 @@ export default function AuthStack(){
 
     return(
         <>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator screenOptions={{ headerShown: false}}>
                 <Stack.Screen name="signin" component={SignIn}/>
                 <Stack.Screen name="signup" component={SignUp}/>
                 <Stack.Screen name="selectStudy" component={SelectStudy}/>
