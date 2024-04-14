@@ -11,10 +11,11 @@ import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
 
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"
 import styles from "./styles"
 import { quizs } from "../../handlers/main/quiz/quizs"
 import { all } from "../../handlers/main/quiz/exams"
+import { usePage } from "../../contexts/PageContext"
 
 
 
@@ -27,6 +28,13 @@ export const Quiz = () => {
   const [getExam, setgetExam] = useState([])
   const [filteredExams, setFilteredExams] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('quiz');
+  });
+
 
   useEffect(() => {
     all().then((res) => {

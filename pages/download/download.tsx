@@ -11,9 +11,10 @@ import {
 import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"
 import styles from "./styles"
 import { topics } from "../../data/data"
+import { usePage } from "../../contexts/PageContext"
 
 
 
@@ -21,6 +22,12 @@ export const Downloads = () => {
   const navigation = useNavigation()
 
   const route = useRoute()
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('download');
+  });
 
   return (
     <View>

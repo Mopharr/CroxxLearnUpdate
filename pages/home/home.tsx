@@ -18,16 +18,18 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
 import { subjects } from "../../data/data"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { getAllVideos } from "../../handlers/main/video/videos"
 import { useUser } from "../../contexts/UserContext"
 import { pdfs } from "../../handlers/main/pdf/pdfs"
+import { usePage } from "../../contexts/PageContext"
 // import { SafeAreaView } from "react-native-safe-area-context"
 
 const { height } = Dimensions.get("screen")
 
 
 export const Home = () => {
+
   const navigation = useNavigation()
   const backgroundColors = ["#343333", "#0E1282", "#970912"]
   const backgroundPdfColors = ["#524848", "#95C900", "#3200E0"]
@@ -37,6 +39,12 @@ export const Home = () => {
   const [getPdf, setGetPdf] = useState([])
   const [singleVideo, setSingleVideo] = useState([])
   const { user } = useUser()
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('home');
+  });
 
   useEffect(() => {
     getAllVideos().then((res) => {
@@ -50,8 +58,9 @@ export const Home = () => {
   const handleVideo = (video: any) => {
     setSingleVideo(video)
   }
+
   useEffect(() => {
-     if (singleVideo) {
+    if (singleVideo) {
       navigation.navigate("courseVideo", { singleVideo });
     }
   }, [singleVideo]);
@@ -96,13 +105,11 @@ export const Home = () => {
 
           <View style={$listSubject}>
             {subjects.map((subject, inx) => (
-              <>
-                <View key={inx} style={$subject}>
-                  <Text style={$tesb} key={subject.id}>
-                    {subject.name}
-                  </Text>
-                </View>
-              </>
+              <View key={inx} style={$subject}>
+                <Text style={$tesb}>
+                  {subject.name}
+                </Text>
+              </View>
             ))}
           </View>
 
@@ -144,11 +151,8 @@ export const Home = () => {
                         </View>
                       </View>
                       <View style={$vid}>
-                        {/* <Image source={{ uri: video.thumbnailUrl }} /> */}
-
                         <View style={$vid}>
                           <Image source={require("../../assets/images/CroxxImage/video.png")} />
-
                           <Image
                             style={$play}
                             source={require("../../assets/images/CroxxImage/start.png")}
@@ -192,7 +196,7 @@ export const Home = () => {
                 )
               })
             ) : (
-              <Text style={$avi}>No Video Available</Text>
+              <Text style={$avi}>No Books Available</Text>
             )}
           </View>
         </View>
@@ -200,6 +204,7 @@ export const Home = () => {
     </View>
   )
 }
+
 
 const $downNavigationContainer: ViewStyle = {
   position: "absolute",

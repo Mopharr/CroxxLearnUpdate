@@ -6,7 +6,7 @@ export default StyleSheet.create({
         top: 10,
         right: 10,
         padding: 10,
-        backgroundColor: "#FF5733",
+        backgroundColor: "#BDFF00",
         alignItems: "center",
         borderRadius: 5,
         zIndex: 20

@@ -1,5 +1,5 @@
 
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import {
     Text,
     View,
@@ -13,19 +13,71 @@ import {
 import { Entypo, FontAwesome5 } from "@expo/vector-icons"
 import { subjects } from "../../data/data"
 import * as Progress from "react-native-progress"
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import styles from "./styles"
+import { usePage } from "../../contexts/PageContext"
+import { getProfile } from "../../handlers/main/user/getProfile"
+import { useUser } from "../../contexts/UserContext"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useAuth } from "../../contexts/AuthContext"
+
+type User = {
+    __v: number;
+    _id: string;
+    email: string;
+    enrolled: boolean;
+    firstName: string;
+    lastName: string;
+    level: number;
+    passwordResetExpires: string;
+    passwordResetToken: string;
+    photo: string;
+    role: string;
+    verificationCode: string | null;
+}
 
 
 export const Profile = () => {
 
     const navigation = useNavigation()
 
+    const { setPage } = usePage();
+    const {setAuth} = useAuth()
+   
+    useFocusEffect(() => {
+        setPage('profile');
+    });
+
+    const [userp, setUserp] = useState<User | undefined>(); // Initialize with undefined
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getProfile();
+                setUserp(data.user);
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const logout = async () => {
+        await AsyncStorage.removeItem('@userEmail')
+        await AsyncStorage.removeItem('@accessToken')
+        await AsyncStorage.removeItem('@user')
+        setAuth(false)
+        navigation.navigate("auth", {screen: "signin"})
+    }
+
+
     return (
         <SafeAreaView style={styles.Profile}>
             <ScrollView>
                 <TouchableOpacity style={styles.logout}
-                    onPress={() => { console.log("login") }}>
+                    onPress={() => {
+                        logout()
+                    }}>
                     <Text>LogOut</Text>
                 </TouchableOpacity>
                 <ImageBackground
@@ -43,14 +95,14 @@ export const Profile = () => {
                         <View>
                             <Text style={styles.ProfileTextS}>Name </Text>
                             <Text style={styles.ProfileText}>
-                                Umeh
-                                <Text style={{ color: "#F3CE09" }}> David </Text>
+                                {userp?.firstName}
+                                <Text style={{ color: "#F3CE09" }}> {userp?.lastName} </Text>
                             </Text>
 
                             <View style={styles.ProfileH2}>
                                 <View>
                                     <Text style={styles.ProfileTextS}>Level</Text>
-                                    <Text style={styles.ProfileTextSP}>100</Text>
+                                    <Text style={styles.ProfileTextSP}>{userp?.level}</Text>
                                 </View>
                                 <View>
                                     <Text style={styles.ProfileTextS}>Department</Text>
@@ -119,3 +171,7 @@ export const Profile = () => {
     )
 }
 export default Profile
+function setAuth(success: any) {
+    throw new Error("Function not implemented.")
+}
+

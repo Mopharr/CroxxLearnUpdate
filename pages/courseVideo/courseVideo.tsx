@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native"
 import { colors } from "../../theme/color"
-import { useNavigation } from "@react-navigation/native"
+import { useFocusEffect, useNavigation } from "@react-navigation/native"
 import { Entypo } from "@expo/vector-icons"
 import styles from "./styles"
 import { useRoute } from '@react-navigation/native';
+import { usePage } from "../../contexts/PageContext"
 
 export const CourseVideo = () => {
   const route = useRoute()
@@ -20,6 +21,13 @@ export const CourseVideo = () => {
   const navigation = useNavigation()
 
   const [singleVideoWatch, setSingleVideoWatch] = useState([])
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('courseVideo');
+  });
+
 
   const handleVideoWatch = (video: any) => {
     setSingleVideoWatch(video)

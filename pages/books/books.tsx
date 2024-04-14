@@ -11,6 +11,7 @@ import {
   TextStyle,
   Text,
   TouchableOpacity,
+  Alert,
 } from "react-native"
 import styles from "./styles"
 
@@ -19,10 +20,16 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
 // import { vh } from "react-native-expo-viewport-units"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"
 import axios from "axios"
 import { colors } from "../../theme/color"
 import { pdfs } from "../../handlers/main/pdf/pdfs"
+import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
+import { WebView } from 'react-native-webview';
+import * as FileSystem from 'expo-file-system';
+import { usePage } from "../../contexts/PageContext"
+
 
 
 export const Books = () => {
@@ -34,6 +41,15 @@ export const Books = () => {
   const [getPdf, setGetPdf] = useState([])
   const [filteredPdfs, setFilteredPdfs] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
+  const [downloadConfirmed, setDownloadConfirmed] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState<string>("");
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('books');
+  });
+
 
   useEffect(() => {
     pdfs().then((res) => {
@@ -64,6 +80,47 @@ export const Books = () => {
     const filtered = filteredPdfs.filter((pdf) => pdf.department.name === subject)
     setFilteredPdfs(filtered)
   }
+
+  const openPDF = async (url: string, topic: string) => {
+    Alert.alert(
+      'Download PDF',
+      `Do you want to download ${topic}?`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            // Set the PDF URL and confirm download
+            downloadPDF(url, topic)
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const downloadPDF = async (pdfUrl: string, pdfFileName: string) => {
+  try {
+    const downloadResumable = FileSystem.createDownloadResumable(
+      pdfUrl,
+      FileSystem.documentDirectory + pdfFileName
+    );
+
+    const uri = await downloadResumable.downloadAsync();
+
+    console.log('PDF downloaded to:', uri?.uri);
+    await WebBrowser.openBrowserAsync(pdfUrl);
+  } catch (error) {
+    console.error('Failed to download PDF:', error);
+    return null; // Return null if download fails
+  }
+};
+
+
 
   const isActive = (subject: string) => {
     if (subject === "All") return true
@@ -171,9 +228,7 @@ export const Books = () => {
                     const backgroundNum = backgroundPdfNumber[inx % backgroundPdfNumber.length]
                     return (
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   return handleGetPdfLink(book.imageUrl)
-                        // }}
+                        onPress={() => openPDF(book.imageUrl, book.topic)}
                         key={inx}
                         style={[styles.books, { backgroundColor }]}
                       >
@@ -182,7 +237,7 @@ export const Books = () => {
                         </View>
 
                         <View style={styles.bookName}>
-                          <Text style={styles.bookNameT}>book.topic</Text>
+                          <Text style={styles.bookNameT}>{book.topic}</Text>
                           <Text style={styles.bookNameTS}>Dr Tunde</Text>
                         </View>
                         <View style={styles.bookIcon}>

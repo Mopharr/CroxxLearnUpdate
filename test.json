@@ -1,0 +1,17 @@
+{
+    "status": "success",
+    "user": {
+        "__v": 0,
+        "_id": "65800d1240c5e4f3e382690e",
+        "email": "bane@gmail.com",
+        "enrolled": true,
+        "firstName": "bane",
+        "lastName": "joe",
+        "level": 200,
+        "passwordResetExpires": "2024-03-25T14:10:56.413Z",
+        "passwordResetToken": "8b727f59a0d94b3c17ef84039cc04608f41c3717067c23ed95e8990dcf54587a",
+        "photo": "default.jpg",
+        "role": "user",
+        "verificationCode": null
+    }
+}

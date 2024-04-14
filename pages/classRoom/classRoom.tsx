@@ -15,12 +15,13 @@ import {
 import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"
 import styles from "./styles"
 // import vfile from "../../../test.js"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
 import { getAllVideos } from "../../handlers/main/video/videos"
+import { usePage } from "../../contexts/PageContext"
 
 
 export const ClassRoom = () => {
@@ -33,6 +34,12 @@ export const ClassRoom = () => {
     const [singleVideo, setSingleVideo] = useState([])
     const [filteredVideos, setFilteredVideos] = useState([])
     const [searchQuery, setSearchQuery] = useState("")
+    const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('classroom');
+  });
 
     useEffect(() => {
         getAllVideos().then((res) => {

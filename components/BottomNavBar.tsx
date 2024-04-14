@@ -1,11 +1,17 @@
 import { StyleSheet, View } from "react-native"
-import React from "react"
+import React, { useEffect } from "react"
 import { FontAwesome } from "@expo/vector-icons"
 import { useNavigation, useRoute } from "@react-navigation/native"
+import { usePage } from "../contexts/PageContext"
 
 const BottomNavBar = () => {
     const navigation = useNavigation()
     const route = useRoute()
+    const {page} = usePage();
+
+    useEffect(() => {
+        console.log(page)
+    }, [])
 
     return (
         <View>
@@ -14,17 +20,17 @@ const BottomNavBar = () => {
                     <FontAwesome
                         name="home"
                         size={30}
-                        color={route.name === "Home" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
+                        color={page == "home" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
                         onPress={() => navigation.navigate("main", { screen: "home" })}
                     />
                     <FontAwesome
                         name="graduation-cap"
                         size={30}
                         color={
-                            route.name === "ClassRoom" ||
-                                route.name === "CourseVideo" ||
-                                route.name === "Books" ||
-                                route.name === "Quiz"
+                            page === "classroom" ||
+                                page === "courseVideo" ||
+                                page === "books" ||
+                                page === "quiz"
                                 ? "#BDFF00"
                                 : "rgba(109, 105, 105, 1)"
                         }
@@ -34,7 +40,7 @@ const BottomNavBar = () => {
                         name="download"
                         size={30}
                         color={
-                            route.name === "Download" || route.name === "DownloadBook"
+                            page === "download" || page === "downloadBook"
                                 ? "#BDFF00"
                                 : "rgba(109, 105, 105, 1)"
                         }
@@ -43,7 +49,7 @@ const BottomNavBar = () => {
                     <FontAwesome
                         name="user"
                         size={30}
-                        color={route.name === "Profile" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
+                        color={page === "profile" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}
                         onPress={() => navigation.navigate("main", { screen: "profile" })}
                     />
                 </View>

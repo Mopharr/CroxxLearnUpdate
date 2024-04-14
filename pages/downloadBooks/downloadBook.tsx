@@ -11,13 +11,21 @@ import {
 import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Entypo } from "@expo/vector-icons"
-import { useNavigation, useRoute } from "@react-navigation/native"
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"
 import { books } from "../../data/data"
 import styles from "./styles"
+import { usePage } from "../../contexts/PageContext"
 
 export const DownloadBooks = () => {
   const navigation = useNavigation()
   const route = useRoute()
+
+  const { setPage } = usePage();
+
+
+  useFocusEffect(() => {
+    setPage('downloadBook');
+  });
 
   return (
     <View>
