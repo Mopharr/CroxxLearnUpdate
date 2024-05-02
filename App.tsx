@@ -58,7 +58,6 @@ export default function App() {
     <AuthContext.Provider value={{auth, setAuth}}>
       <PageContextProvider>
         <UserContextProvider>
-          {/* <StripeProvider publishableKey="pk_test_51LIAmLFozueojb1JUE6c6euwjP2ClmWm1g1dxyD9cOOpvBCgMkLgClLfXH8xvEeplqPFcYh6granpyBVYD0puaCc00HeNEtsOh"> */}
             <LoadingContextProvider>
               <StatusBar barStyle="light-content" />
               <SafeAreaView
@@ -77,7 +76,6 @@ export default function App() {
                 </NavigationContainer>
               </SafeAreaView>
             </LoadingContextProvider>
-          {/* </StripeProvider> */}
         </UserContextProvider>
       </PageContextProvider>
     </AuthContext.Provider>

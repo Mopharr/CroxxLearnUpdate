@@ -56,6 +56,7 @@ export default StyleSheet.create({
         width: "100%",
         height: 43,
         backgroundColor: "#2E2E2E",
+        color: "white",
         borderRadius: 16,
         marginLeft: "auto",
         marginRight: "auto",

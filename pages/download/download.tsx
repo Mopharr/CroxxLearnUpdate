@@ -114,8 +114,6 @@ export const Downloads = () => {
                   </View>
                   <View style={styles.vid}>
                     <Image source={topic.imageUrl} />
-
-                    <Image style={styles.play} source={require("../../assets/CroxxIcon/play.png")} />
                   </View>
                 </TouchableOpacity>
               ))}

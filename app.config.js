@@ -10,7 +10,7 @@ module.exports =
     "icon": "./assets/images/app-icon-all.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/CroxxImage/Group.svg",
+      "image": "./assets/images/CroxxImage/backr.png",
       "resizeMode": "contain",
       "backgroundColor": "radial-gradient(35.87% 43.29% at 63.93% 54.91%, rgba(255, 255, 255, 0.00) 0%, rgba(0, 0, 0, 0.20) 84.72%), url(<path-to-image>), lightgray 50% / cover no-repeat"
     },
@@ -36,9 +36,9 @@ module.exports =
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
       },
       "splash": {
-        "image": "./assets/images/CroxxImage/Group.svg",
+        "image": "./assets/images/CroxxImage/backr.png",
         "resizeMode": "contain",
-        "backgroundColor": "radial-gradient(35.87% 43.29% at 63.93% 54.91%, rgba(255, 255, 255, 0.00) 0%, rgba(0, 0, 0, 0.20) 84.72%), url(<path-to-image>), lightgray 50% / cover no-repeat"
+        "backgroundColor": "black"
       },
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -48,13 +48,16 @@ module.exports =
       ]
     },
     "web": {
-      "favicon": "./assets/images/app-icon-web-favicon.png",
-      "splash": {
-        "image": "./assets/images/splash-logo-web.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#191015"
-      }
-    },
+        "favicon": "./assets/images/app-icon-web-favicon.png",
+        "build": {
+          "babel": {
+            "include": ["react-native", "react-native-web"]
+          }
+        },
+        "web": {
+          "bundler": "metro"
+        }
+      },
     "extra": {
       "EXPO_PUBLIC_HOST": process.env.EXPO_PUBLIC_HOST || null,
       "eas": {

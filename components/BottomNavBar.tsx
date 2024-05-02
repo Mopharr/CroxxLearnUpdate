@@ -37,16 +37,6 @@ const BottomNavBar = () => {
                         onPress={() => navigation.navigate("main", { screen: "classRoom" })}
                     />
                     <FontAwesome
-                        name="download"
-                        size={30}
-                        color={
-                            page === "download" || page === "downloadBook"
-                                ? "#BDFF00"
-                                : "rgba(109, 105, 105, 1)"
-                        }
-                        onPress={() => navigation.navigate("main", { screen: "download" })}
-                    />
-                    <FontAwesome
                         name="user"
                         size={30}
                         color={page === "profile" ? "#BDFF00" : "rgba(109, 105, 105, 1)"}

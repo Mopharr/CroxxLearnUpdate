@@ -20,6 +20,7 @@ import { getProfile } from "../../handlers/main/user/getProfile"
 import { useUser } from "../../contexts/UserContext"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useAuth } from "../../contexts/AuthContext"
+import { useUserProfile } from "../../contexts/UserProfileContext"
 
 type User = {
     __v: number;
@@ -43,6 +44,7 @@ export const Profile = () => {
 
     const { setPage } = usePage();
     const {setAuth} = useAuth()
+    const {userProfile} = useUserProfile()
    
     useFocusEffect(() => {
         setPage('profile');
@@ -78,7 +80,7 @@ export const Profile = () => {
                     onPress={() => {
                         logout()
                     }}>
-                    <Text>LogOut</Text>
+                    <Text style={{color: "white"}}>LogOut</Text>
                 </TouchableOpacity>
                 <ImageBackground
                     source={require("../../assets/images/CroxxImage/profilePur.png")}

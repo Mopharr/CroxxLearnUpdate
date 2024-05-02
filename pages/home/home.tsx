@@ -12,6 +12,7 @@ import {
   ScrollView,
   ImageStyle,
   TouchableOpacity,
+  Alert,
 } from "react-native" // Added TextStyle
 import { colors } from "../../theme/color"
 import Ionicons from "@expo/vector-icons/Ionicons"
@@ -23,6 +24,8 @@ import { getAllVideos } from "../../handlers/main/video/videos"
 import { useUser } from "../../contexts/UserContext"
 import { pdfs } from "../../handlers/main/pdf/pdfs"
 import { usePage } from "../../contexts/PageContext"
+import * as FileSystem from 'expo-file-system';
+import * as WebBrowser from 'expo-web-browser';
 // import { SafeAreaView } from "react-native-safe-area-context"
 
 const { height } = Dimensions.get("screen")
@@ -64,6 +67,45 @@ export const Home = () => {
       navigation.navigate("courseVideo", { singleVideo });
     }
   }, [singleVideo]);
+
+  const openPDF = async (url: string, topic: string) => {
+    Alert.alert(
+      'Download PDF',
+      `Do you want to download ${topic}?`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            // Set the PDF URL and confirm download
+            downloadPDF(url, topic)
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const downloadPDF = async (pdfUrl: string, pdfFileName: string) => {
+  try {
+    const downloadResumable = FileSystem.createDownloadResumable(
+      pdfUrl,
+      FileSystem.documentDirectory + pdfFileName
+    );
+
+    const uri = await downloadResumable.downloadAsync();
+
+    console.log('PDF downloaded to:', uri?.uri);
+    await WebBrowser.openBrowserAsync(pdfUrl);
+  } catch (error) {
+    console.error('Failed to download PDF:', error);
+    return null; // Return null if download fails
+  }
+};
 
 
   return (
@@ -121,7 +163,7 @@ export const Home = () => {
 
             <View>
               {getVideos.length > 0 ? (
-                getVideos.map((video, inx) => {
+                getVideos.splice(0, 5).map((video, inx) => {
                   const backgroundColor = backgroundColors[inx % backgroundColors.length]
                   return (
                     <TouchableOpacity
@@ -153,10 +195,10 @@ export const Home = () => {
                       <View style={$vid}>
                         <View style={$vid}>
                           <Image source={require("../../assets/images/CroxxImage/video.png")} />
-                          <Image
+                          {/* <Image
                             style={$play}
                             source={require("../../assets/images/CroxxImage/start.png")}
-                          />
+                          /> */}
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -176,10 +218,14 @@ export const Home = () => {
 
           <View style={$booksCon}>
             {getPdf.length > 1 ? (
-              getPdf.map((book, inx) => {
+              getPdf.splice(0, 5).map((book, inx) => {
                 const backgroundColor = backgroundPdfColors[inx % backgroundPdfColors.length]
                 const backgroundNum = backgroundPdfNumber[inx % backgroundPdfNumber.length]
                 return (
+                  <TouchableOpacity
+                        onPress={() => openPDF(book.imageUrl, book.topic)}
+                        key={inx}
+                      >
                   <View key={inx} style={[$books, { backgroundColor }]}>
                     <View style={[$bookNo, { backgroundColor: backgroundNum }]}>
                       <Text style={$bookNoT}>{"0" + inx}</Text>
@@ -193,6 +239,7 @@ export const Home = () => {
                       <Entypo name="minus" size={17} color={colors.fill} style={$iconE} />
                     </View>
                   </View>
+                  </TouchableOpacity>
                 )
               })
             ) : (

@@ -108,7 +108,6 @@ export const CourseVideo = () => {
                 </View>
                 <View style={styles.vid}>
                   <Image source={require("../../assets/images/CroxxImage/video.png")} />
-                  <Image style={styles.play} source={require("../../assets/CroxxIcon/play.png")} />
                 </View>
               </TouchableOpacity>
             </View>

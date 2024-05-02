@@ -24,6 +24,7 @@ import styles from "./styles";
 const logo = require("../../assets/images/CroxxImage/logo1.png");
 const back = require("../../assets/images/CroxxImage/backr.png");
 
+
 const { height, width } = Dimensions.get("screen");
 
 export default function SignIn() {
@@ -124,17 +125,17 @@ export default function SignIn() {
                                 )}
                             </ImageBackground>
                         </TouchableOpacity>
-                        
+
                     </View>
                     <Text style={styles.acc}>
-                            Don't have an account?
-                            <Text
-                                style={styles.signUp}
-                                onPress={() => navigation.navigate("auth", { screen: "signup" })}
-                            >
-                                SignUp
-                            </Text>
+                        Don't have an account?
+                        <Text
+                            style={styles.signUp}
+                            onPress={() => navigation.navigate("auth", { screen: "signup" })}
+                        >
+                            SignUp
                         </Text>
+                    </Text>
                 </ImageBackground>
             </KeyboardAvoidingView>
         </View>
