@@ -8,20 +8,35 @@ import { useLoading } from '../contexts/LoadingContext';
 import { SchoolDetails } from '../pages/schoolDetails/schoolDetails';
 import OnboardingScreen from '../pages/onboardingScreen/onboardingScreen';
 import { SelectStudy } from '../pages/seleteStudy/seleteStudy';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 
 export default function AuthStack(){
     const {loading} = useLoading()
+    const [first, setFirst] = useState(true)
+
+    useEffect(() => {
+        const checkStorage = async () => {
+            const storage = await AsyncStorage.getItem("@first")
+            if (storage) {
+                setFirst(false)
+            } else {
+                await AsyncStorage.setItem("@first", "1")
+            }
+        }
+        checkStorage()
+        console.log(first)
+    }, [])
 
     return(
         <>
             <Stack.Navigator screenOptions={{ headerShown: false}}>
-                <Stack.Screen name="signin" component={SignIn}/>
+                {first? <Stack.Screen name="onboardScreen" component={OnboardingScreen} />:<Stack.Screen name="signin" component={SignIn}/>}
                 <Stack.Screen name="signup" component={SignUp}/>
                 <Stack.Screen name="selectStudy" component={SelectStudy}/>
                 <Stack.Screen name="schoolDetails" component={SchoolDetails}/>
-                <Stack.Screen name="onboardScreen" component={OnboardingScreen} />
                 <Stack.Screen name="reset-password" component={ResetPassword}/>
                 
                 {/* <Stack.Screen name="signout" component={Signout}/> */}
