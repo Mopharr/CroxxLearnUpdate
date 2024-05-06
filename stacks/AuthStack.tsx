@@ -6,7 +6,7 @@ import ResetPassword from '../pages/resetPassword/resetPassword'
 import Loader from '../components/Loader';
 import { useLoading } from '../contexts/LoadingContext';
 import { SchoolDetails } from '../pages/schoolDetails/schoolDetails';
-import OnboardingScreen from '../pages/onboardingScreen/onboardingScreen';
+import OnboardingScreen from '../pages/OnboardingScreen/OnboardingScreen';
 import { SelectStudy } from '../pages/seleteStudy/seleteStudy';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
